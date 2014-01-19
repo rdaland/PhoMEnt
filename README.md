@@ -2,3 +2,6 @@ PhoMEnt
 =======
 
 Maximum entropy phonotactic learner
+
+Contributors:
+Dustin Bowers
