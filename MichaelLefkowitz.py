@@ -1,4 +1,6 @@
-# MichaelLefkowitz.py plays a simple number game with users. Specifically, it asks them to input numbers, becomes increasingly angry at the user's choices, insults the user, and then terminates.
+# MichaelLefkowitz.py plays a simple number game with users. 
+# Specifically, it asks them to input numbers, becomes increasingly 
+# angry at their choices, insults them, and then terminates.
 
 print ("Hello, user! Let's play a game.")
 for x in range(0, 3):
