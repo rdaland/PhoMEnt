@@ -18,7 +18,6 @@ def RussianRoulette():
             while choice != bullet and count <= 5:
                 print "You survived round", count, "!"
                 bullet = bullet%6 + 1
-                print choice, bullet
                 count = count + 1
             if count <= 5:
                 print "Sorry, you lose. Thanks for playing!"
