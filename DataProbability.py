@@ -9,7 +9,7 @@ import math  # so we can do e-exponentiation
 # counts:     a dictionary {(input-output): frequency}
 
 
-### FUNCTIONS ###
+### HELPER FUNCTIONS ###
 
 # Compute harmonies by dot-producting violations and constraint weights
 # for each input/output pair.
@@ -48,17 +48,34 @@ def computePrs(harmonies,zVals):
 # of all the input/output probabilities raised to their counts
 def computePrOfData(probs,counts):
     probDat = 1
-    for (i,j) in counts:
+    for (i,j) in probs:
         probDat *=  probs[(i,j)] ** counts[(i,j)]
     return probDat
 
 
+### VERIFY INPUT IS LEGAL ###
+def inputIsOk(weights,violations,counts):
+    numberOfCons = len(weights)
+    stillOkay = True
+    for i in violations:
+        for j in violations[i]:
+            if not len(violations[i][j]) == numberOfCons:
+                stillOkay = False
+                print "Error: i/o pair",i,j,"has the wrong number of violations."
+            if not ((i,j) in counts.keys()):
+                stillOkay = False
+                print "Error: counts has no key for i/o pair",(i,j)
+    return stillOkay
+
+
 ### MAIN FUNCTION ###
 def probability(weights,violations,counts):
-    harmonies = computeHs(weights,violations)
-    zVals = computeZs(harmonies)
-    probs = computePrs(harmonies,zVals)
-    return computePrOfData(probs,counts)
+    if inputIsOk(weights,violations,counts):
+        harmonies = computeHs(weights,violations)
+        zVals = computeZs(harmonies)
+        probs = computePrs(harmonies,zVals)
+        return computePrOfData(probs,counts)
+    else: return 0
 
 
 ### EXAMPLE INPUTS / FUNCTION CALL ###
@@ -68,5 +85,3 @@ violations1 = {1: {1:[0,1,0],2:[0,0,1]}, 2: {1:[1,0,0],2:[1,1,0]}}
 counts1 = {(1,1):1, (1,2):0, (2,1):3, (2,2):3}
 
 print probability(weights1,violations1,counts1)
-
-
