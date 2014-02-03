@@ -11,42 +11,42 @@ import math  # so we can do e-exponentiation
 
 ### HELPER FUNCTIONS ###
 
-# Compute harmonies by dot-producting violations and constraint weights
-# for each input/output pair.
-def computeHs(weights,violations):
-    hs = {}
+# Compute maxent values P* = exp(harmony) for each i/o pair by taking the
+# dot-product of its violations * constraint weights, and exponentiating.
+def compute_maxent_vals(weights,violations):
+    maxVals = {}
     for i in violations:
-        hs[i] = {}
+        maxVals[i] = {}
         for j in violations[i]:
-            h = 0
+            harm = 0
             for c in range(0, len(weights)):
-                h += weights[c] * violations[i][j][c]
-            hs[i][j] = h
-    return hs
+                harm += weights[c] * violations[i][j][c]
+            maxVals[i][j] = math.exp(harm)
+    return maxVals
 
-# Compute z-values by summing the exp(harmony) of all outputs for
-# each input, and return a dictionary {input : {output : harmony}}
-def computeZs(harmonies):
-    zs = {}
-    for i in harmonies:
+# Compute Z-values by summing the P* values of all outputs for a
+# given input, and return a dictionary {input : {output : harmony}}
+def compute_z_scores(maxVals):
+    zScores = {}
+    for i in maxVals:
         z = 0.0
-        for j in harmonies[i]:
-             z += math.exp(harmonies[i][j])
-        zs[i] = z
-    return zs
+        for j in maxVals[i]:
+             z += maxVals[i][j]
+        zScores[i] = z
+    return zScores
 
-# Compute input/output probabilities by dividing exp(harmony) by Z,
+# Compute input/output probabilities by dividing P* by Z,
 # and return a dictionary {(input-output): probability}
-def computePrs(harmonies,zVals):
+def compute_probs(maxVals,zScores):
     probs = {}
-    for i in harmonies:
-        for j in harmonies[i]:
-            probs[(i,j)] = math.exp(harmonies[i][j]) / zVals[i]
+    for i in maxVals:
+        for j in maxVals[i]:
+            probs[(i,j)] = maxVals[i][j] / zScores[i]
     return probs
 
 # Compute the probability of the whole data set by taking the product
 # of all the input/output probabilities raised to their counts
-def computePrOfData(probs,counts):
+def compute_prob_of_data(probs,counts):
     probDat = 1
     for (i,j) in probs:
         probDat *=  probs[(i,j)] ** counts[(i,j)]
@@ -54,7 +54,7 @@ def computePrOfData(probs,counts):
 
 
 ### VERIFY INPUT IS LEGAL ###
-def inputIsOk(weights,violations,counts):
+def input_is_ok(weights,violations,counts):
     numberOfCons = len(weights)
     stillOkay = True
     for i in violations:
@@ -70,18 +70,18 @@ def inputIsOk(weights,violations,counts):
 
 ### MAIN FUNCTION ###
 def probability(weights,violations,counts):
-    if inputIsOk(weights,violations,counts):
-        harmonies = computeHs(weights,violations)
-        zVals = computeZs(harmonies)
-        probs = computePrs(harmonies,zVals)
-        return computePrOfData(probs,counts)
+    if input_is_ok(weights,violations,counts):
+        maxVals = compute_maxent_vals(weights,violations)
+        zScores = compute_z_scores(maxVals)
+        probs = compute_probs(maxVals,zScores)
+        return compute_prob_of_data(probs,counts)
     else: return 0
 
 
 ### EXAMPLE INPUTS / FUNCTION CALL ###
 
-weights1 = [1.0,2.0,3.0]
-violations1 = {1: {1:[0,1,0],2:[0,0,1]}, 2: {1:[1,0,0],2:[1,1,0]}}
-counts1 = {(1,1):1, (1,2):0, (2,1):3, (2,2):3}
+# weights1 = [1.0,2.0,3.0]
+# violations1 = {1: {1:[0,1,0],2:[0,0,1]}, 2: {1:[1,0,0],2:[1,1,0]}}
+# counts1 = {(1,1):1, (1,2):0, (2,1):3, (2,2):3}
 
-print probability(weights1,violations1,counts1)
+# print probability(weights1,violations1,counts1)
