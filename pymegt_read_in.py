@@ -1,5 +1,6 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
+import sys
 
 class AllTheThings(object):
 
@@ -63,7 +64,7 @@ class AllTheThings(object):
             #and checking to see if the input is already present in the violation dictionary
 
             #Wasn't there some discussion between Michael and Robert about removing zero-valued somethings at readin?
-att = AllTheThings('toy_input_2.txt')
+att = AllTheThings(sys.argv[1])
 print(att.constraints)
 print(att.counts)
 print(att.violations)
