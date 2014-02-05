@@ -71,5 +71,6 @@ def probability(tableau, weights):
     return compute_prob_of_data(tableau, weights)
 
 ### EXAMPLE WEIGHTS ###
+# Set weights to be nonpositive: formula for P* is P* = exp(harm).
 
 weights = {"*VC":0,"*#V":0}
