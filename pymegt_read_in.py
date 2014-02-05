@@ -24,7 +24,7 @@ class MegaTableau(object):
         self.constraints = []
         self.constrainst_abbrev = []
         self.weights = []
-        self.tableau = defaultdict()
+        self.tableau = defaultdict(dict)
         if megt_file:
             self.read_megt_file(megt_file)
 
@@ -43,5 +43,34 @@ class MegaTableau(object):
                 violations = [int(v) for v in splitline[3:]]
                 self.tableau[current_input][current_output] = [freq,violations,0] #frequency, violations, maxent_val
 
-t = MegaTableau('toy_input_1.txt')
-print t.tableau
+    def read_weights_file(self, weights_file):
+        """Read in a file containing constraint weights.
+        Each line in the file is either:
+            (constraint name)\t(weight)
+            or
+            (weight)
+        In the former case, weights can be in any order as long as the name-weight associations are right.
+        In the latter case, the weights must be in the same order as in the MEGT input file.
+        Files mixing the two conventions will throw an exception.
+        """
+        with open(weights_file) as f:
+            slines = [line.split('\t') for line in f.read().rstrip().split('\n')]
+            try:
+                self.weights = [float(sline[0]) for sline in slines]
+            except ValueError:
+                try:
+                    weights_dict = {constraint: float(weight) for constraint,weight in slines}
+                    self.weights = [weights_dict[constraint] for constraint in self.constraints]
+                except:
+                    raise Exception("Input file not in one of the standard formats.")
+
+
+
+
+
+
+t = MegaTableau('toy_input_1.txt') # N.B.: you can also create a MegaTableau with no MEGT input file specified.
+t.read_weights_file('toy_weights_2.txt')
+print t.weights
+# print t.tableau
+
