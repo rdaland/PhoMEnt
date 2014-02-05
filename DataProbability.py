@@ -1,36 +1,34 @@
-import math  # so we can do e-exponentiation
+"""
+DataProbability.py defines a functions for computing the probability
+of observed data. The main function is called 'probability'. It takes
+arguments (tableau, weights).
 
-# DataProbability.py defines a set of functions for computing the 
-# probability of a set of outputs  given some number of inputs.
+tableau:    a dictionary of dictionaries of lists: {input: {output: [frequency, violation vector, maxent_value]}}
+weights:    a list of numbers
+"""
 
-# weights:    a list of constraint weights
-# tableau:    a dictionary of dictionaries of lists {input: {output: [frequency, violations, maxent_value]}}
+import math
 
-# since violation vectors are oftentimes sparse, we encode them as dictionaries 
-# whose keys are all and only the constraints that a given input-output pair violates.
-# pymegt would then fill in the zeroes later.
-
-# violations: a dictionary of positive integers {constraint: violation_count}
 
 ### HELPER FUNCTIONS ###
 
-# Computes harmony for a given i/o pair by taking the dot-product
-# of its violations and constraint weights.
+# Compute harmony for a given i/o pair by taking the dot-product
+# of its violations and the constraint weights.
 
 def calc_harm(tableau, weights, i, j):
     harm = 0
-    for v in tableau[i][j][1]:
-        harm += weights[v]*tableau[i][j][1][v]
+    for c in range (0, len(weights)):
+        harm += weights[c] * tableau[i][j][1][c]
     return harm
 
-# Computes maxent value P* = exp(harmony) for a given i/o pair.
+# Compute maxent value P* = exp(harmony) for a given i/o pair.
 
 def compute_maxent_val(tableau, weights, i, j):
    return math.exp(calc_harm(tableau, weights, i, j))
 
-# Computes maxent values P* = exp(harmony) for each i/o pair and
+# Compute maxent values P* = exp(harmony) for each i/o pair and
 # stores it in the tableau in tableau[i][j][2].
-   
+
 def compute_maxent_vals(tableau, weights):
     for i in tableau:
         for j in tableau[i]:
@@ -38,8 +36,7 @@ def compute_maxent_vals(tableau, weights):
 
 # Compute a Z-value by summing the P* values over all outputs for
 # a given input. Must run compute_maxent_vals beforehand, or else
-# you get the wrong number. tableau[i][j][2] is always initialized
-# to 0 for various mechanical reasons....
+# you'll get the wrong number.
 
 def compute_z_score(tableau, i):
     zScore = 0
@@ -64,13 +61,19 @@ def compute_prob_of_data(tableau, weights):
             probDat *= compute_prob(tableau,weights,i,j)**tableau[i][j][0] 
     return probDat
 
+
 ### MAIN FUNCTION ###
 
 def probability(tableau, weights):
     compute_maxent_vals(tableau, weights)
     return compute_prob_of_data(tableau, weights)
 
-### EXAMPLE WEIGHTS ###
-# Set weights to be nonpositive: formula for P* is P* = exp(harm).
 
-weights = {"*VC":0,"*#V":0}
+### EXAMPLE WEIGHTS, TABLEAU ###
+
+ex_tab = {'x': {'a': [1.0, [0,1], 0], 'b': [0.0, [1,0], 0]},
+               'y': {'c': [1.0, [1,0], 0], 'd': [0.0, [1,1], 0]}}
+
+ex_weights = [-3.0,-1.0]  # Set all weights to be nonpositive
+
+
