@@ -1,7 +1,6 @@
 """
-DataProbability.py defines a functions for computing the probability
-of observed data. The main function is called 'probability'. It takes
-arguments (tableau, weights).
+data_prob.py defines functions for computing the probability of observed data.
+The main function is called 'probability'. It takes arguments (tableau, weights).
 
 tableau:    a dictionary of dictionaries of lists: {input: {output: [frequency, violation vector, maxent_value]}}
 weights:    a list of numbers
