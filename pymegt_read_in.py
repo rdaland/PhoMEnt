@@ -1,6 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 import sys
+from collections import defaultdict
 
 class MegaTableau(object):
 
@@ -23,7 +24,7 @@ class MegaTableau(object):
         self.constraints = []
         self.constrainst_abbrev = []
         self.weights = []
-        self.tableau = {}
+        self.tableau = defaultdict(dict)
         if megt_file:
             self.read_megt_file(megt_file)
 
@@ -36,15 +37,11 @@ class MegaTableau(object):
 
             for line in fstr[2:]:
                 splitline = line.split('\t')
-                output_violations = {}
-                for index, item in enumerate(splitline):
-                    if index == 2: #stores freq as float()
-                        freq = float(item)
-                    elif index > 2: #stores constraint violations as int() in a dictionary
-                        if item:
-                            output_violations[self.constraints[index-3]] = int(item)
-                if splitline[0]:
-                    current_input = splitline[0]
-                self.tableau[current_input] = {}
-                self.tableau[current_input][splitline[1]] = []
-                self.tableau[current_input][splitline[1]].extend([freq,output_violations])
+                current_input = splitline[0] if splitline[0] else current_input
+                current_output = splitline[1]
+                freq = float(splitline[2])
+                violations = [int(v) for v in splitline[3:]]
+                self.tableau[current_input][current_output] = [freq,violations,0] #frequency, violations, maxent_val
+
+t = MegaTableau('toy_input_1.txt')
+print t.tableau
