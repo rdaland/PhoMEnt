@@ -30,6 +30,7 @@ class MegaTableau(object):
     def read_megt_file(self, megt_file):
         """(** formatting conventions **)"""
         with open(megt_file) as f:
+
             fstr = f.read().rstrip().split('\n') #making list of all rows
             self.constraints = fstr[0].split('\t')[3:] #populating constraints
             self.constrainst_abbrev = fstr[1].split('\t')[3:] #populating constraint abbreviations
@@ -38,16 +39,13 @@ class MegaTableau(object):
                 splitline = line.split('\t')
                 output_violations = {}
                 for index, item in enumerate(splitline):
-                    if index == 2: #stores freq as float()
+                    if index == 2: #stores freq as floats
                         freq = float(item)
-                    elif index > 2: #stores constraint violations as int() in a dictionary
+                    elif index > 2: #sets output_violations = {constraint index: number of violations} with integers for values
                         if item:
                             output_violations[self.constraints[index-3]] = int(item)
                 if splitline[0]:
                     current_input = splitline[0]
-                self.tableau[current_input] = {}
-                self.tableau[current_input][splitline[1]] = []
-                self.tableau[current_input][splitline[1]].extend([freq,output_violations])
-att = MegaTableau(sys.argv[1])
-print(att.constraints)
-print(att.tableau)
+                    self.tableau[current_input] = {} #sets tableau = {input:{input dictionary}}
+                self.tableau[current_input][splitline[1]] = [] # sets input dictionary = {output:[output list]}
+                self.tableau[current_input][splitline[1]].extend([freq,output_violations,0]) #sets output list = [freq, output_violations]
