@@ -24,7 +24,7 @@ class MegaTableau(object):
         self.constraints = []
         self.constrainst_abbrev = []
         self.weights = []
-        self.tableau = defaultdict(dict)
+        self.tableau = defaultdict()
         if megt_file:
             self.read_megt_file(megt_file)
 
