@@ -48,6 +48,3 @@ class MegaTableau(object):
                 self.tableau[current_input] = {}
                 self.tableau[current_input][splitline[1]] = []
                 self.tableau[current_input][splitline[1]].extend([freq,output_violations])
-att = MegaTableau(sys.argv[1])
-print(att.constraints)
-print(att.tableau)
