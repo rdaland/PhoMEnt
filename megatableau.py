@@ -40,7 +40,7 @@ class MegaTableau(object):
                 current_input = splitline[0] if splitline[0] else current_input
                 current_output = splitline[1]
                 freq = float(splitline[2])
-                violations = [int(v) for v in splitline[3:]]
+                violations = [int(v) if v else 0 for v in splitline[3:]]
                 self.tableau[current_input][current_output] = [freq,violations,0] #frequency, violations, maxent_val
 
     def read_weights_file(self, weights_file):
@@ -63,14 +63,4 @@ class MegaTableau(object):
                     self.weights = [weights_dict[constraint] for constraint in self.constraints]
                 except:
                     raise Exception("Input file not in one of the standard formats.")
-
-
-
-
-
-
-t = MegaTableau('toy_input_1.txt') # N.B.: you can also create a MegaTableau with no MEGT input file specified.
-t.read_weights_file('toy_weights_2.txt')
-print t.weights
-# print t.tableau
 
