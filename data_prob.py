@@ -38,7 +38,7 @@ def compute_maxent_val(tableau, weights, i, j):
     i ------- input
     j ------- output
     """
-   return math.exp(calc_harm(tableau, weights, i, j))
+    return math.exp(calc_harm(tableau, weights, i, j))
 
 # I strongly recommend we make this function name be more distinct from the above
 # maxent_val_repeated()?
