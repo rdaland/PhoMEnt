@@ -18,4 +18,4 @@ mt = megatableau.MegaTableau(tableau_file_name)
 mt.read_weights_file(weights_file_name)
 
 # Compute and print answer
-print data_prob.probability(mt.tableau, mt.weights)
+print data_prob.probability(mt.weights, mt.tableau)

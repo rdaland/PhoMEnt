@@ -111,7 +111,7 @@ def compute_prob_of_data(tableau, weights):
 
 ### MAIN FUNCTION ###
 
-def probability(tableau, weights):
+def probability(weights, tableau):
     """
     Convenience function.
     First updates the maxent values in the tableau 
