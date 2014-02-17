@@ -19,6 +19,7 @@ def negative_probability(weights, tableau):
 
 learned_weights = scipy.optimize.fmin_tnc(data_prob.probability, w_0, args = (mt.tableau,), bounds=nonpos_reals, approx_grad=True)
 
-# print(one_minus_probability([-2.2,-0.4], mt.tableau))
-
 print(learned_weights)
+
+print("Probability given weights found by the original MEGT:")
+print(data_prob.probability([-2.19,-0.43], mt.tableau))
