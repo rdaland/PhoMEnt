@@ -1,0 +1,25 @@
+v	800
+c v	1000
+v c	500
+c v c	500
+v c c	300
+v c v	400
+c v c c	350
+c v c v	800
+v c c v	600
+v c v c	200
+c v c c v	250
+c v c v c	400
+v c c c v	50
+v c c v c	200
+v c v c c	150
+v c v c v	300
+c v c c c v	50
+c v c c v c	80
+c v c v c c	50
+c v c v c v	50
+v c c c v c	20
+v c c v c c	20
+v c c v c v	20
+v c v c c v	20
+v c v c v c	20
