@@ -21,5 +21,5 @@ learned_weights = scipy.optimize.fmin_tnc(data_prob.probability, w_0, args = (mt
 
 print(learned_weights)
 
-print("Probability given weights found by the original MEGT:")
-print(data_prob.probability([-2.19,-0.43], mt.tableau))
+# print("Probability given weights found by the original MEGT:")
+# print(data_prob.probability([-2.19,-0.43], mt.tableau))
