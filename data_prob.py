@@ -127,8 +127,8 @@ def probability(weights, tableau):
     compute_maxent_vals(tableau, weights)
     return compute_prob_of_data(tableau, weights)
 
-def log_probability(weights, tableau):
-    return math.log(probability(weights, tableau))
+def neg_log_probability(weights, tableau):
+    return -math.log(probability(weights, tableau))
 
 
 ### EXAMPLE WEIGHTS, TABLEAU ###
