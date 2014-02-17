@@ -8,7 +8,17 @@ tableau_file_name = sys.argv[1]
 
 # Read in data
 mt = megatableau.MegaTableau(tableau_file_name)
+w_0 = -scipy.rand(len(mt.weights))
+nonpos_reals = [(-25,0) for wt in mt.weights]
 
-learned_weights = scipy.optimize.fmin_tnc(data_prob.probability, -scipy.rand(len(mt.weights)), args = (mt.tableau,), approx_grad=True)
+def one_minus_probability(weights, tableau):
+    return 1.0-data_prob.probability(weights, tableau)
+
+def negative_probability(weights, tableau):
+    return -data_prob.probability(weights, tableau)
+
+learned_weights = scipy.optimize.fmin_tnc(data_prob.probability, w_0, args = (mt.tableau,), bounds=nonpos_reals, approx_grad=True)
+
+# print(one_minus_probability([-2.2,-0.4], mt.tableau))
 
 print(learned_weights)

@@ -60,7 +60,6 @@ class MegaTableau(object):
                 violations = [int(v) if v else 0 for v in splitline[3:]]
                 self.tableau[current_input][current_output] = [freq,violations,0] #frequency, violations, maxent_val
             self.weights = numpy.zeros(len(splitline[3:])) # starting weights
-            print(self.weights)
 
     def read_weights_file(self, weights_file):
         """
