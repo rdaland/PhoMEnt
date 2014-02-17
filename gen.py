@@ -10,7 +10,7 @@ def sigma_k(alphabet, k):
     have this function return a generator rather than a list eventually if 
     memory usage becomes a problem.
     """
-    return [''.join(tuple) for tuple in itertools.product(alphabet, repeat=k)]
+    return [''.join(word) for word in itertools.product(alphabet, repeat=k)]
 
 def sigma_0k(alphabet, k):
     """Return all words in all sigma-n from n=1 to k.
