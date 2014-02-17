@@ -1,6 +1,7 @@
 """
 data_prob.py defines functions for computing the probability of observed data.
-The main function is called 'probability'. It takes arguments (tableau, weights).
+The main functions are called 'probability' and 'log_probability). Each takes
+arguments (weights, tableau).
 
 tableau:    a dictionary of dictionaries of lists: {input: {output: [frequency, violation vector, maxent_value]}}
 weights:    a list of numbers
@@ -109,7 +110,7 @@ def compute_prob_of_data(tableau, weights):
     return probDat
 
 
-### MAIN FUNCTION ###
+### MAIN FUNCTIONS ###
 
 def probability(weights, tableau):
     """
@@ -125,6 +126,9 @@ def probability(weights, tableau):
     """
     compute_maxent_vals(tableau, weights)
     return compute_prob_of_data(tableau, weights)
+
+def log_probability(weights, tableau):
+    return math.log(probability(weights, tableau))
 
 
 ### EXAMPLE WEIGHTS, TABLEAU ###
