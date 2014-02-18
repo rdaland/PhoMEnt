@@ -22,3 +22,8 @@ megatab3 = megatableau.MegaTableau('toy_input_3.txt')
 megatab3.read_weights_file('toy_weights_3.txt')
 
 print data_prob.probability(megatab3.weights,megatab3.tableau)
+
+megatab4 = megatableau.MegaTableau('breaker2.txt')
+megatab4.read_weights_file('toy_weights_3.txt')
+
+print data_prob.probability(megatab4.weights,megatab3.tableau)
