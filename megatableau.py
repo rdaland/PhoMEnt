@@ -42,7 +42,7 @@ class MegaTableau(object):
         """
         Populates the following attributes with data from megt_file
             self.constraints -------- list of constraint names
-            self.constrainst_abbrev - list of abbreviations of constraint names
+            self.constraints_abbrev - list of abbreviations of constraint names
             self.tableau ------------ dictionary: {input : {output : [freq, violVec, maxentScore]}}
         megt_file: string representation of an OTSoft input file.
         """
