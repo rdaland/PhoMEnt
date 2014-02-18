@@ -7,7 +7,7 @@ def readDataOnly(dataFile):
     tableau = megatableau.MegaTableau()
     with open(dataFile) as fileIn:
         for line in fileIn:
-            parsed = "\t".split(line)
+            parsed = line.split('\t')
             if len(parsed) < 2:
                 print "lines need to at least have an ouput and a frequency"
                 return
