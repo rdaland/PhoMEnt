@@ -31,9 +31,8 @@ class MegaTableau(object):
             OTSoft guidelines are summarized in class descriptor too.
         """
         self.constraints = []
-        #no-one has references to self.constrainst_abbrev elsewhere in their code right?
-        #I recommend changing all occurences to the correctly spelled self.constraints_abbrev
-        self.constrainst_abbrev = []
+        #formerly self.constrainst_abbrev
+        self.constraints_abbrev = []
         self.weights = []
         self.tableau = defaultdict(dict)
         if megt_file:
@@ -50,7 +49,7 @@ class MegaTableau(object):
         with open(megt_file) as f:
             fstr = f.read().rstrip().split('\n') #making list of all rows
             self.constraints = fstr[0].split('\t')[3:] #populating constraints
-            self.constrainst_abbrev = fstr[1].split('\t')[3:] #populating constraint abbreviations
+            self.constraints_abbrev = fstr[1].split('\t')[3:] #populating constraint abbreviations
 
             for line in fstr[2:]:
                 splitline = line.split('\t')
