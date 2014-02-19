@@ -17,7 +17,11 @@ class MegaTableau(object):
             *DO NOT PUT CANDIDATES ON THE SECOND LINE OF THE INPUT FILE*
         self.weights ------------ a list of weights for constraints
         self.tableau ------------ a dictionary of dictionaries:
-           {input: {output: [count, {constraint: number of violations}, P*]}}
+            {input: {output: [freq, violVec, maxentScore]}}
+            freq = float()
+            violations = list of constraint violations (integers).
+                Order is order of constraints in self.constraints, etc
+            maxentScore = e**harmony. Initialized to zero (because harmony is undefined without weights).
     Contains the following methods:
         self.read_megt_file(megt_file) - moves the data from the .txt file to the attributes
             self.weights is not populated.
@@ -43,7 +47,7 @@ class MegaTableau(object):
         Populates the following attributes with data from megt_file
             self.constraints -------- list of constraint names
             self.constraints_abbrev - list of abbreviations of constraint names
-            self.tableau ------------ dictionary: {input : {output : [freq, violVec, maxentScore]}}
+            self.tableau ------------ dictionary: {input: {output: [freq, violVec, maxentScore]}}
         megt_file: string representation of an OTSoft input file.
         """
         with open(megt_file) as f:
