@@ -34,7 +34,7 @@ def applyMarkList(tableau, markList):
                 else:
                     tableau[UR][SR][1].extend([violations(re.compile(con),SR) for con in markList])
         tableau.constraints.extend(markList)
-        tableau.constrants_abbrev.extend(markList)
+        tableau.constraints_abbrev.extend(markList)
     return tableau
     
 def applyFaithList(tableau, faithList):
