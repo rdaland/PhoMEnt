@@ -2,21 +2,30 @@ import sys
 import megatableau, data_prob
 import scipy, scipy.optimize
 
-# Argument parsing
-assert len(sys.argv)==2
-tableau_file_name = sys.argv[1]
+def learn_weights(mt):
+    """ Given a filled-in megatableau, optimize and return its weight vector.
+    """
+    # Set up the initial weights and weight bounds (nonpositive reals)
+    w_0 = -scipy.rand(len(mt.weights))
+    nonpos_reals = [(-25,0) for wt in mt.weights]
 
-# Read in data
-mt = megatableau.MegaTableau(tableau_file_name)
+    # Learn
+    learned_weights, fneval, rc = scipy.optimize.fmin_tnc(data_prob.neg_log_probability, w_0, args = (mt.tableau,), bounds=nonpos_reals, approx_grad=True)
 
-# Set up the initial weights and weight bounds (nonpositive reals)
-w_0 = -scipy.rand(len(mt.weights))
-nonpos_reals = [(-25,0) for wt in mt.weights]
+    return learned_weights
 
-# Learn
-learned_weights, fneval, rc = scipy.optimize.fmin_tnc(data_prob.neg_log_probability, w_0, args = (mt.tableau,), bounds=nonpos_reals, approx_grad=True)
+if __name__ == '__main__':
+    """ Runs if calc_weights.py is called from the shell rather than imported.
+    """
+    # Argument parsing
+    assert len(sys.argv)==2
+    tableau_file_name = sys.argv[1]
 
-print(learned_weights)
+    # Read in data
+    mt = megatableau.MegaTableau(tableau_file_name)
 
-# print("Probability given weights found by the original MEGT:")
-# print(data_prob.probability([-2.19,-0.43], mt.tableau))
+    # Learn and print
+    mt.weights = learn_weights(mt)
+    print('\nLearned weights:')
+    for constraint,weight in zip(mt.constraints, mt.weights):
+        print(constraint+'\t'+str(weight))
