@@ -60,7 +60,9 @@ class MegaTableau(object):
                 current_input = splitline[0] if splitline[0] else current_input
                 current_output = splitline[1]
                 freq = float(splitline[2])
-                violations = [int(v) if v else 0 for v in splitline[3:]]
+                violations = [float(v) if v else 0.0 for v in splitline[3:]]
+                for blank in range(len(self.constraints)-len(splitline[3:])): #in case the user doesn't add blank tabs
+                    violations.append(0.0)
                 self.tableau[current_input][current_output] = [freq,violations,0] #frequency, violations, maxent_val
             self.weights = numpy.zeros(len(splitline[3:])) # starting weights
 
