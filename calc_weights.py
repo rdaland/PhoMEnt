@@ -1,4 +1,6 @@
 import sys
+# Should this import should be inside the if statement below? -Michael
+
 import megatableau, data_prob
 import scipy, scipy.optimize
 
