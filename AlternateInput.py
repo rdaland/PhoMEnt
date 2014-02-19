@@ -2,6 +2,7 @@ import megatableau
 import data_prob
 import gen
 import calc_weights
+import regex as re
 
 def readDataOnly(dataFile):
     tableau = megatableau.MegaTableau()
@@ -17,6 +18,9 @@ def readDataOnly(dataFile):
                 tableau.tableau[parsed[0]][parsed[1]] = [parsed[2], None, 0]
     return tableau
 
+def violations(constraint,word):
+    return len(constraint.findall(word, overlapped = True))
+
 def applyMarkList(tableau, markList):
     """
     Apply markedness constraints to each SR in tableau
@@ -26,9 +30,9 @@ def applyMarkList(tableau, markList):
         for UR in tableau:
             for SR in tableau[UR]:
                 if not tableau[UR][SR][1]:
-                    tableau[UR][SR][1] = [con(SR) for con in markList]
+                    tableau[UR][SR][1] = [violations(re.compile(con),SR) for con in markList]
                 else:
-                    tableau[UR][SR][1].extend([con(SR) for con in markList])
+                    tableau[UR][SR][1].extend([violations(re.compile(con),SR) for con in markList])
         tableau.constraints.extend(markList)
         tableau.constrants_abbrev.extend(markList)
     return tableau
@@ -48,3 +52,5 @@ def applyFaithList(tableau, faithList):
         tableau.constraints.extend(markList)
         tableau.constrants_abbrev.extend(markList)
     return tableau
+
+samplemarklist = ['[cv]','^v','c$','cc','vv']
