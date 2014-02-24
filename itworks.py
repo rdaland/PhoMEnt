@@ -10,5 +10,6 @@ newCons = ['[cv]','^v','c$','c c','v v', '^c c', 'c c c$', 'c c c c']
 
 ai.applyMarkList(mt, newCons)
 
-calc_weights.learn_weights(mt)
+weights, stuff, rc = calc_weights.learn_weights(mt)
 
+print(weights)
