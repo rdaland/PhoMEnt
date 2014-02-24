@@ -1,7 +1,7 @@
 import megatableau
 import data_prob
 import gen
-##import calc_weights
+import calc_weights
 import re
 
 def readDataOnly(dataFile):
@@ -17,6 +17,17 @@ def readDataOnly(dataFile):
             elif len(parsed) == 3: #inputs, outputs, freq
                 tableau.tableau[parsed[0]][parsed[1]] = [float(parsed[2]), None, 0]
     return tableau
+
+def augment_sigmak(mt, sigma, k):
+    if len(mt.tableau) > 1:
+        print("Can't handle multiple inputs.")
+        return False
+    extant = ["".join(output.split(" ")) for output in mt.tableau["NEW-WORD"]]
+    possible = gen.sigma_1k(sigma, k)
+    for word in possible:
+        if word not in extant:
+            newOutput = " ".join([char for char in word])
+            mt.tableau["NEW-WORD"][newOutput] = [0.0, None, 0]
 
 def violations(constraint,word):
     return len(constraint.findall(word))#, overlapped = True))
@@ -35,6 +46,7 @@ def applyMarkList(mt, markList):
                     mt.tableau[UR][SR][1].extend([violations(re.compile(con),SR) for con in markList])
         mt.constraints.extend(markList)
         mt.constraints_abbrev.extend(markList)
+        mt.weights.extend([0.0 for constraint in markList])
     return mt
     
 def applyFaithList(mt, faithList):
@@ -53,4 +65,6 @@ def applyFaithList(mt, faithList):
         mt.constrants_abbrev.extend(markList)
     return mt
 
-samplemarklist = ['[cv]','^v','c$','cc','vv']
+samplemarklist = ['[cv]','^v','c$','c c','v v']
+
+samplemarklist2 = ['^c c', 'c c c$', 'c c c c']
