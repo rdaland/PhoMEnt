@@ -22,12 +22,10 @@ def augment_sigmak(mt, sigma, k):
     if len(mt.tableau) > 1:
         print("Can't handle multiple inputs.")
         return False
-    extant = ["".join(output.split(" ")) for output in mt.tableau["NEW-WORD"]]
     possible = gen.sigma_1k(sigma, k)
     for word in possible:
-        if word not in extant:
-            newOutput = " ".join([char for char in word])
-            mt.tableau["NEW-WORD"][newOutput] = [0.0, None, 0]
+        if word not in mt.tableau["NEW-WORD"]:
+            mt.tableau["NEW-WORD"][word] = [0.0, None, 0]
 
 def violations(constraint,word):
     return len(constraint.findall(word))#, overlapped = True))
