@@ -12,6 +12,8 @@ def sigma_k(alphabet, k):
             sigma_i = []
             sigma_h = helper(i - 1)
             for word in sigma_h:
+                if i > 1:
+                    word += ' '
                 sigma_i += [word + a for a in alphabet]
         return sigma_i
     return helper(k)
@@ -28,6 +30,8 @@ def sigma_0k(alphabet, k):
             sigma_i = []
             sigma_h, language = helper(i - 1)
             for word in sigma_h:
+                if i > 1:
+                    word += ' '
                 new_stuff = [word + a for a in alphabet]
                 sigma_i += new_stuff
                 language += new_stuff
