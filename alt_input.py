@@ -4,9 +4,7 @@ import gen
 import calc_weights
 import re
 
-print "PLEASE USE module alt_input instead of ALTERNATEINPUT"
-
-def read_data_only(dataFile):
+def readDataOnly(dataFile):
     tableau = megatableau.MegaTableau()
     with open(dataFile) as fileIn:
         for line in fileIn:
@@ -20,7 +18,7 @@ def read_data_only(dataFile):
                 tableau.tableau[parsed[0]][parsed[1]] = [float(parsed[2]), None, 0]
     return tableau
 
-def augment_sigma_k(mt, sigma, k):
+def augment_sigmak(mt, sigma, k):
     if len(mt.tableau) > 1:
         print("Can't handle multiple inputs.")
         return False
@@ -32,7 +30,7 @@ def augment_sigma_k(mt, sigma, k):
 def violations(constraint,word):
     return len(constraint.findall(word))#, overlapped = True))
 
-def apply_mark_list(mt, markList):
+def applyMarkList(mt, markList):
     """
     Apply markedness constraints to each SR in tableau
     """
@@ -49,22 +47,22 @@ def apply_mark_list(mt, markList):
         mt.weights.extend([0.0 for constraint in markList])
     return mt
     
-##def apply_faith_list(mt, faithList):
-##    """
-##    Apply faith constraints to each SR in tableau
-##    """
-##    #only add constraint violations if you haven't already added these constraints to the tableau
-##    if all([con not in mt.constraints for con in faithList]):
-##        for UR in mt.tableau:
-##            for SR in mt.tableau[UR]:
-##                if not mt.tableau[UR][SR][1]:
-##                    mt.tableau[UR][SR][1] = [con((UR, SR)) for con in faithList]
-##                else:
-##                    mt.tableau[UR][SR][1].extend([con((UR, SR)) for con in faithList])
-##        mt.constraints.extend(markList)
-##        mt.constrants_abbrev.extend(markList)
-##    return mt
+def applyFaithList(mt, faithList):
+    """
+    Apply faith constraints to each SR in tableau
+    """
+    #only add constraint violations if you haven't already added these constraints to the tableau
+    if all([con not in mt.constraints for con in faithList]):
+        for UR in mt.tableau:
+            for SR in mt.tableau[UR]:
+                if not mt.tableau[UR][SR][1]:
+                    mt.tableau[UR][SR][1] = [con((UR, SR)) for con in faithList]
+                else:
+                    mt.tableau[UR][SR][1].extend([con((UR, SR)) for con in faithList])
+        mt.constraints.extend(markList)
+        mt.constrants_abbrev.extend(markList)
+    return mt
 
-sampleMarkList = ['[cv]','^v','c$','c c','v v']
+samplemarklist = ['[cv]','^v','c$','c c','v v']
 
-sampleMarkList2 = ['^c c', 'c c c$', 'c c c c']
+samplemarklist2 = ['^c c', 'c c c$', 'c c c c']
