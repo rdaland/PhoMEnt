@@ -12,7 +12,11 @@ def learn_weights(mt):
     nonpos_reals = [(-25,0) for wt in mt.weights]
 
     # Learn
-    learned_weights, fneval, rc = scipy.optimize.fmin_tnc(data_prob.neg_log_probability, w_0, args = (mt.tableau,), bounds=nonpos_reals, approx_grad=True)
+    print(data_prob.nlpwg(w_0, mt.tableau))
+    learned_weights, fneval, rc = scipy.optimize.fmin_tnc(data_prob.nlpwg, w_0, args = (mt.tableau,), bounds=nonpos_reals)
+
+    ## Previous version below: tells fmin_tnc to approximate the gradient itself
+    # learned_weights, fneval, rc = scipy.optimize.fmin_tnc(data_prob.neg_log_probability, w_0, args = (mt.tableau,), bounds=nonpos_reals, approx_grad=True)
 
     return learned_weights
 
