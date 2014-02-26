@@ -38,16 +38,24 @@ def get_hyper_parabola (c2_c1_tuples, c0):
 
 ### Functions for determining the actual minima for parabolas, i.e. the "right" answer
 ### that should be found by a correctly working optimization function.
+### N.B. this question is only well-defined when the x-squared terms are positive. 
 
 def correct_parab_min(c2, c1, c0):
     ''' returns the optimal x value for the parabola with the specified constants
     '''
+    if c2 <= 0:
+        print "Error: no global minimum because c2 is non-positive."
+        return
     best_x = (- c1) / (2 * c2)
     return [best_x]
 
 def correct_hyper_parab_min(c2_c1_tuples, c0):
     ''' returns the optimal input vector for the hyperparabola with the specified constants
     '''
+    for (c2,c1) in c2_c1_tuples:
+        if c2 <= 0:
+            print "Error: no global minimum because some c2 is non-positive."
+            return
     best = [0 for x in c2_c1_tuples]
     for i in range(0,len(c2_c1_tuples)):
         (c2,c1) = c2_c1_tuples[i]
