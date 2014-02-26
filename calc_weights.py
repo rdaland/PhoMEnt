@@ -38,7 +38,6 @@ def learn_hyper_parabola(c2_c1_tuples, c0):
     return learned_xs
 
 
-
 if __name__ == '__main__':
     """ Runs if calc_weights.py is called from the shell rather than imported.
     """
