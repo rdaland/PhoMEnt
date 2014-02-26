@@ -21,6 +21,24 @@ def learn_weights(mt):
 
     return learned_weights
 
+def learn_parabola(c2,c1,c0):
+    parab = parabolas.get_parabola(c2,c1,c0)
+    x_0 = [0]
+    learned_x, fneval, rc = scipy.optimize.fmin_tnc(parab, x_0)
+    print "correct minimum: x =", parabolas.correct_parab_min(c2,c1,c0)
+    print "learned minimum: x =", learned_x
+    return learned_x
+
+def learn_hyper_parabola(c2_c1_tuples, c0):
+    hyperparab = parabolas.get_hyper_parabola(c2_c1_tuples,c0)
+    xs_0 = [0 for x in c2_c1_tuples]
+    learned_xs, fneval, rc = scipy.optimize.fmin_tnc(hyperparab, xs_0)
+    print "correct minimum: xs =", parabolas.correct_hyper_parab_min(c2_c1_tuples,c0)
+    print "learned minimum: xs =", learned_xs
+    return learned_xs
+
+
+
 if __name__ == '__main__':
     """ Runs if calc_weights.py is called from the shell rather than imported.
     """
@@ -36,19 +54,3 @@ if __name__ == '__main__':
     print('\nLearned weights:')
     for constraint,weight in zip(mt.constraints, mt.weights):
         print(constraint+'\t'+str(weight))
-
-def learn_parabola(c2,c1,c0):
-    parab = parabolas.get_parabola(c2,c1,c0)
-    x_0 = 0
-    learned_x, fneval, rc = scipy.optimize.fmin_tnc(parab, x_0)
-    print "correct minimum: x =", parabolas.correct_parab_min(c2,c1,c0)
-    print "learned minimum: x =", learned_x
-    return learned_x
-
-def learn_hyper_parabola(c2_c1_tuples, c0):
-    hyperparab = parabolas.get_hyper_parabola(c2_c1_tuples,c0)
-    xs_0 = [0 for x in c2_c1_tuples]
-    learned_xs, fneval, rc = scipy.optimize.fmin_tnc(hyperparab, xs_0)
-    print "correct minimum: xs =", parabolas.correct_hyper_parab_min(c2_c1_tuples,c0)
-    print "learned minimum: xs =", learned_xs
-    return learned_xs
