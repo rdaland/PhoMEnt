@@ -3,6 +3,7 @@ import sys
 
 import megatableau, data_prob
 import scipy, scipy.optimize
+import numpy as np
 import parabolas
 
 def learn_weights(mt):
@@ -10,11 +11,12 @@ def learn_weights(mt):
     """
     # Set up the initial weights and weight bounds (nonpositive reals)
     w_0 = -scipy.rand(len(mt.weights))
+    print(w_0)
     nonpos_reals = [(-25,0) for wt in mt.weights]
 
     # Learn
-    print(data_prob.nlpwg(w_0, mt.tableau))
-    learned_weights, fneval, rc = scipy.optimize.fmin_tnc(data_prob.nlpwg, w_0, args = (mt.tableau,), bounds=nonpos_reals)
+    learned_weights, fneval, rc = scipy.optimize.fmin_l_bfgs_b(data_prob.nlpwg, w_0, args = (mt.tableau,), bounds=nonpos_reals)
+    print(learned_weights)
 
     ## Previous version below: tells fmin_tnc to approximate the gradient itself
     # learned_weights, fneval, rc = scipy.optimize.fmin_tnc(data_prob.neg_log_probability, w_0, args = (mt.tableau,), bounds=nonpos_reals, approx_grad=True)

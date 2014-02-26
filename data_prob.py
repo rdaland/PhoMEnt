@@ -8,22 +8,7 @@ weights:    a list of numbers
 """
 
 import math
-
-def learn_weights(mt):
-    """ Given a filled-in megatableau, optimize and return its weight vector.
-    """
-    # Set up the initial weights and weight bounds (nonpositive reals)
-    w_0 = -scipy.rand(len(mt.weights))
-    nonpos_reals = [(-25,0) for wt in mt.weights]
-
-    # Learn
-    print(data_prob.nlpwg(w_0, mt.tableau))
-    learned_weights, fneval, rc = scipy.optimize.fmin_tnc(data_prob.nlpwg, w_0, args = (mt.tableau,), bounds=nonpos_reals)
-
-    ## Previous version below: tells fmin_tnc to approximate the gradient itself
-    # learned_weights, fneval, rc = scipy.optimize.fmin_tnc(data_prob.neg_log_probability, w_0, args = (mt.tableau,), bounds=nonpos_reals, approx_grad=True)
-
-    return learned_weights
+import numpy as np
 
 ### HELPER FUNCTIONS ###
 
@@ -74,8 +59,8 @@ def neg_log_probability_with_gradient(weights, tableau):
     expected[:] = [x * data_size for x in expected] # multiply expected values by size of data
     #print observed
     #print expected
-    gradient = [x - y for x, y in zip(observed, expected)] # i.e. observed minus expected
-    return (-logProbDat, gradient)
+    gradient = [y - x for x, y in zip(observed, expected)] # i.e. observed minus expected
+    return (-logProbDat, np.array(gradient))
 
 nlpwg = neg_log_probability_with_gradient # So you don't get carpal tunnel syndrome.
 
