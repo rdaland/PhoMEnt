@@ -34,7 +34,7 @@ def update_maxent_values(weights, tableau):
 
 ### OBJECTIVE FUNCTION(S) ###
 
-def neg_log_probability_with_gradient(weights, tableau):
+def neg_log_probability_with_gradient(weights, tableau, l1_prior=1.0):
     """ Returns the negative log probability of the data AND a gradient vector.
     This is the objective function used in learn_weights().
     """
@@ -43,6 +43,10 @@ def neg_log_probability_with_gradient(weights, tableau):
     observed = [0 for i in range(len(weights))] # Vector of observed violations
     expected = [0 for i in range(len(weights))] # Vector of expected violations
     data_size = 0 # Number of total data points: the sum of all counts.
+
+    prob_prior = sum([l1_prior*w for w in weights])
+    grad_prior = [l1_prior for w in weights]
+
     for ur in tableau:
         z = z_score(tableau, ur)
         for sr in tableau[ur]:
@@ -52,17 +56,20 @@ def neg_log_probability_with_gradient(weights, tableau):
             for c in range(len(tableau[ur][sr][1])):
                 observed[c] += tableau[ur][sr][1][c] * tableau[ur][sr][0]
                 expected[c] += tableau[ur][sr][1][c] * prob
+    logProbDat += prob_prior
+
     expected[:] = [x * data_size for x in expected] # multiply expected values by size of data
-    gradient = [e - o for o, e in zip(observed, expected)] # i.e. -(observed minus expected)
+    gradient = [e-o-p for e, o, p  in zip(expected, observed, grad_prior)] # i.e. -(observed minus expected)
+
     return (-logProbDat, gradient)
 
 nlpwg = neg_log_probability_with_gradient # So you don't get carpal tunnel syndrome.
 
-def neg_log_probability(weights, tableau):
+def neg_log_probability(weights, tableau, l1_prior=1.0):
     """ Returns just the negative log probability of the data.
     This function isn't currently used, it's just here in case you want it.
     """
-    return (nlpwg(weights, tableau))[0]
+    return (nlpwg(weights, tableau, l1_prior))[0]
 
 def probability(weights, tableau):
     """ Returns just the probability of the data.
