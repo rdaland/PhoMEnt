@@ -87,8 +87,8 @@ def learn_weights(mt):
     mt.weights = learned_weights
 
     # Be sociable
-    print "Initial (neglogprob, gradient):", (nlpwg(w_0, mt.tableau))
-    print "Final   (neglogprob, gradient):", (nlpwg(learned_weights, mt.tableau))
+    print "Log probability with initial weights:", -(nlpwg(w_0, mt.tableau))[0]
+    print "             ...with learned weights:", -(nlpwg(learned_weights, mt.tableau))[0]
     print "\nBoom! Weights have been updated:"
     for i in range(0,len(learned_weights)):
         print mt.constraints_abbrev[i],"\t",learned_weights[i]
