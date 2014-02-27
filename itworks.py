@@ -1,6 +1,6 @@
 
 import alt_input as ai
-import calc_weights
+import optimizer
 
 mt = ai.read_data_only('phx_train.txt')
 
@@ -10,6 +10,6 @@ newCons = ['[cv]','^v','c$','c c','v v', '^c c', 'c c c$', 'c c c c']
 
 ai.apply_mark_list(mt, newCons)
 
-weights = calc_weights.learn_weights(mt)
+weights = optimizer.learn_weights(mt)
 
 print(weights)

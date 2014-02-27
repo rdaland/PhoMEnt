@@ -1,7 +1,5 @@
 import megatableau
-import data_prob
 import gen
-import calc_weights
 import re
 
 def read_data_only(dataFile):
