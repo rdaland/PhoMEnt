@@ -3,12 +3,13 @@ import geneval
 import optimizer
 
 # Parse command line arguments
-## TODO: parse four arguments: `tableau_file_name`, `constraint_file_name`, `alphabet` (optional), `k` (optional?)
+## TODO: parse four arguments: `tableau_file_name`, `constraint_file_name`, `alphabet_file_name` (optional), `k` (optional?)
 
 # Create and fill MegaTableau
 mt = megatableau.MegaTableau()
 geneval.read_data_only(mt, tableau_file_name) # read in attested forms and add to MegaTableau
-## TODO: figure out alphabet if not provided, and/or get a default value for k if it's not provided
+## TODO: 1) read `alphabet_file_name` constraints into memory as a list `alphabet`, 2) figure out alphabet from attested forms if not provided
+## Question: do we want to have a default value for k?
 geneval.augment_sigma_k(mt, alphabet, k) # add non-attested forms to tableau
 ## TODO: read in constraints and turn them into a list of strings called `constraints`
 geneval.apply_mark_list(mt, constraints)
