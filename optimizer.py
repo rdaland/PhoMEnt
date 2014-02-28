@@ -88,9 +88,11 @@ def learn_weights(mt, L1 = 1.0, L2 = 0.0, precision = 10000000):
     nonpos_reals = [(-25,0) for wt in mt.weights]
 
     # optimization parameters
-    l1_reg = L1 or 1.0
-    l2_reg = L2 or 0.0
-    prec = precision or 10000000
+    l1_reg = L1 or 1.0        # TODO: logPrior = -l1_reg * sum(weights)
+                              # TODO: logPriorGradient = l1_reg * scipy.ones(len(weights))
+    l2_reg = L2 or 0.0        # TODO: logPrior -= l2_reg * sum(weights*weights)
+                              # TODO: logPriorGradient -= 2*l2_reg * scipy.array(weights)
+    prec = precision or 10000000 # TODO: plus prec into optimize call
 
     # Find the best weights
     learned_weights, fneval, rc = scipy.optimize.fmin_tnc(nlpwg, w_0, args = (mt.tableau,), bounds=nonpos_reals)
