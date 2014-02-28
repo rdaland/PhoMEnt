@@ -22,7 +22,7 @@ args = parser.parse_args()
 mt = megatableau.MegaTableau(args.input_file_name)
 
 # Optimize weights
-optimizer.learn_weights(mt, args.L1, args.L2) # weights are now stored in mt.weights in the same order as mt.constraints
+optimizer.learn_weights(mt, args.L1, args.L2, args.precision) # weights are now stored in mt.weights in the same order as mt.constraints
 
 # Output file
 ## TODO: construct and output the augmented MEGT input file
