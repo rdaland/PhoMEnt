@@ -1,5 +1,6 @@
 import megatableau
 import re
+import numpy
 
 def read_data_only(mt, dataFile):
     """
@@ -28,7 +29,9 @@ def read_constraints(mt, constraintFile):
         for line in f:
             splitline = line.rstrip().split('\t')
             if len(splitline) == 1:
-                print "we need constraint, weight pairs. Ignoring", splitline
+		constraintList.append(splitline[0])
+		mt.weights.append(0.0)
+                #print "we need constraint, weight pairs. Ignoring", splitline
             if len(splitline) == 2:
                 if splitline[1]:
                     mt.weights.append(float(splitline[1]))
@@ -85,7 +88,11 @@ def apply_mark_list(mt, markList):
                     mt.tableau[UR][SR][1].extend([violations(re.compile(con),SR) for con in markList])
         mt.constraints.extend(markList)
         mt.constraints_abbrev.extend(markList)
-        mt.weights.extend([0.0 for constraint in markList])
+	#weights already added by read_constraints()
+	#fwiw, mt.weights has been converted to a numpy array
+	#such things do not support extension or appending
+	#the conversion is not just here, it occurs in megatableau too
+        #mt.weights.extend([0.0 for constraint in markList])
 
 
 ## Below are several functions for generating subets of sigma star (list).

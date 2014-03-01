@@ -1,0 +1,8 @@
+[cv]
+^v
+c$
+c c
+v v
+^c c
+c c c$
+c c c c
