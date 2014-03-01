@@ -96,3 +96,8 @@ class MegaTableau(object):
                 except:
                     raise Exception("Input file not in one of the standard formats.")
 
+    def write_output(self):
+        """Needs to be written"""
+        pass
+        ## TODO: Write this function
+
