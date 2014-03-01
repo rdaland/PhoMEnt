@@ -4,6 +4,7 @@
 import megatableau
 import scipy, scipy.optimize
 import math
+import numpy as np
 
 ### HELPER FUNCTIONS FOR CALCULATING PROBABILITY ###
 
@@ -61,7 +62,7 @@ def neg_log_probability_with_gradient(weights, tableau, l1_prior=1.0):
     expected[:] = [x * data_size for x in expected] # multiply expected values by size of data
     gradient = [e-o-p for e, o, p  in zip(expected, observed, grad_prior)] # i.e. -(observed minus expected)
 
-    return (-logProbDat, gradient)
+    return (-logProbDat, np.array(gradient))
 
 nlpwg = neg_log_probability_with_gradient # So you don't get carpal tunnel syndrome.
 
@@ -95,7 +96,7 @@ def learn_weights(mt, L1 = 1.0, L2 = 0.0, precision = 10000000):
     prec = precision or 10000000 # TODO: plus prec into optimize call
 
     # Find the best weights
-    learned_weights, fneval, rc = scipy.optimize.fmin_tnc(nlpwg, w_0, args = (mt.tableau,), bounds=nonpos_reals)
+    learned_weights, fneval, rc = scipy.optimize.fmin_l_bfgs_b(nlpwg, w_0, args = (mt.tableau,), bounds=nonpos_reals)
 
     # Update the mt in place with the new weights
     mt.weights = learned_weights
