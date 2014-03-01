@@ -13,7 +13,33 @@ def read_data_only(mt, dataFile):
             elif len(parsed) == 3: #inputs, outputs, freq
                 mt.tableau[parsed[0]][parsed[1]] = [float(parsed[2]), None, 0]
 
+def read_sigma(mt, sigmaFile = False):
+    """
+    Rip sigma out of a megatableau or a file containing sigma.
+    """
+    sigma = []
+    if sigmaFile:
+        with open(sigmaFile) as fileIn:
+            for line in fileIn:
+                parsed = line.strip()
+                if parsed not in sigma:
+                    sigma.append(parsed)
+    else:
+        for UR in mt.tableau:
+            if UR != "NEW-WORD":
+                for phone in UR.split():
+                    if phone not in sigma:
+                        sigma.append(phone)
+            for SR in mt.tableau[UR]:
+                for phone in SR.split():
+                    if phone not in sigma:
+                        sigma.append(phone)
+    return sigma
+
 def augment_sigma_k(mt, sigma, k):
+    """
+    Add all unnatested strings of sigma* up to length k to mt.tableau
+    """
     if len(mt.tableau) > 1:
         print("Can't handle multiple inputs.")
         return False
