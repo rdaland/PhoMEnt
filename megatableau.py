@@ -52,7 +52,14 @@ class MegaTableau(object):
         """
         with open(megt_file) as f:
             fstr = f.read().rstrip().split('\n') #making list of all rows
-            self.constraints = fstr[0].split('\t')[3:] #populating constraints
+            if len(self.constraints) == 0: #if the constraints weren't included in the weights file
+                self.constraints = fstr[0].split('\t')[3:] #populating constraints
+            else:
+                temp_constraints = dict((e, 0) for e in self.constraints)
+                for new_const in fstr[0].split('\t')[3:]:
+                    if new_const not in temp_constraints:
+                        self.constraints.append(new_const)
+                        print "Warning: constraint " + new_const + " not in weights file."
             self.constraints_abbrev = fstr[1].split('\t')[3:] #populating constraint abbreviations
 
             for line in fstr[2:]:
@@ -84,6 +91,7 @@ class MegaTableau(object):
             except ValueError:
                 try:
                     weights_dict = {constraint: float(weight) for constraint,weight in slines}
+                    self.constraints = weights_dict.keys()
                     self.weights = [weights_dict[constraint] for constraint in self.constraints]
                 except:
                     raise Exception("Input file not in one of the standard formats.")
