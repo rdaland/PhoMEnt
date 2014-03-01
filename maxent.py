@@ -10,6 +10,7 @@ parser = argparse.ArgumentParser(description = \
          'Maximum entropy harmonic grammar')
 parser.add_argument('input_file_name', help='Name of input file')
 parser.add_argument('-o', '--outfile', help='Name of output file')
+
 ## weight-setting parameters
 parser.add_argument('-l', '--L1', type=float, default=1.0, \
          help='Multiplier for L1 regularizer')

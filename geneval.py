@@ -13,10 +13,14 @@ def read_data_only(mt, dataFile):
             elif len(parsed) == 3: #inputs, outputs, freq
                 mt.tableau[parsed[0]][parsed[1]] = [float(parsed[2]), None, 0]
 
+## read in constraints and turn them into a list of strings called `constraints`
+def read_constraints(args.constraint_file_name)
+    ## TODO: write this function
+    return(None)
+
+
 def read_sigma(mt, sigmaFile = False):
-    """
-    Rip sigma out of a megatableau or a file containing sigma.
-    """
+    'Rip sigma out of a megatableau or a file containing sigma.'
     sigma = []
     if sigmaFile:
         with open(sigmaFile) as fileIn:
@@ -37,9 +41,7 @@ def read_sigma(mt, sigmaFile = False):
     return sigma
 
 def augment_sigma_k(mt, sigma, k):
-    """
-    Add all unnatested strings of sigma* up to length k to mt.tableau
-    """
+    'Add all unnatested strings of sigma* up to length k to mt.tableau'
     if len(mt.tableau) > 1:
         print("Can't handle multiple inputs.")
         return False
@@ -52,9 +54,7 @@ def violations(constraint,word):
     return len(constraint.findall(word))#, overlapped = True))
 
 def apply_mark_list(mt, markList):
-    """
-    Apply markedness constraints to each SR in tableau
-    """
+    'Apply markedness constraints to each SR in tableau'
     #only add constraint violations if you haven't already added these constraints to the tableau
     if all([con not in mt.constraints for con in markList]):
         for UR in mt.tableau:
@@ -68,13 +68,11 @@ def apply_mark_list(mt, markList):
         mt.weights.extend([0.0 for constraint in markList])
 
 
-'''Below are several functions for generating subets of sigma star (in list form). Namely:
-sigma_k, sigma_0k, sigma_1k each of which takes an alphabet and a value for k, and returns a list.
-'''
+## Below are several functions for generating subets of sigma star (list).
+## sigma_k, sigma_0k, sigma_1k: takes an alphabet and a k, return a list.
 
 def sigma_k(alphabet, k):
-    '''Returns all words in sigma-k
-    '''
+    'Returns all words in sigma-k'
     def helper(i):
         if i == 0:
             sigma_i = ['']
@@ -89,8 +87,7 @@ def sigma_k(alphabet, k):
     return helper(k)
 
 def sigma_0k(alphabet, k):
-    '''Returns all words in all sigma-n from n = 0 to k.
-    '''
+    'Returns all words in all sigma-n from n = 0 to k.'
     assert k >= 0
     def helper(i):
         language = ['']
@@ -109,8 +106,7 @@ def sigma_0k(alphabet, k):
     return helper(k)[1]
 
 def sigma_1k(alphabet, k):
-    '''Return all words in all sigma-n from n = 1 to k.
-    '''
+    'Return all words in all sigma-n from n = 1 to k.'
     language = sigma_0k(alphabet, k)
     del language[0] # Get rid of empty string
     return language
