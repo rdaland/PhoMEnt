@@ -1,14 +1,28 @@
+
+import argparse
+
 import megatableau
 import optimizer
 
-# Parse command line argument
-## TODO: parse one argument: `input_file_name` is the name of the MEGT input file
+# Parse command line arguments
+parser = argparse.ArgumentParser(description = 'Maximum entropy harmonic grammar')
+parser.add_argument('input_file_name', help='Name of input file')
+
+## the following are parameters for the weight-setting step
+parser.add_argument('-l', '--L1', type=float, default=1.0, help='Multiplier for L1 regularizer')
+parser.add_argument('-L', '--L2', type=float, default=None, help='Multiplier for L1 regularizer')
+parser.add_argument('-p', '--precision', type=float, default=10000000, help='Precision for gradient search (see docs)')
+
+args = parser.parse_args()
+
+
+
 
 # Construct MegaTableau
-mt = megatableau.MegaTableau(input_file_name)
+mt = megatableau.MegaTableau(args.input_file_name)
 
 # Optimize weights
-optimizer.learn_weights(mt) # weights are now stored in mt.weights in the same order as mt.constraints
+optimizer.learn_weights(mt, args.L1, args.L2, args.precision) # weights are now stored in mt.weights in the same order as mt.constraints
 
 # Output file
 ## TODO: construct and output the augmented MEGT input file

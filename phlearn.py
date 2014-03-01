@@ -1,15 +1,37 @@
+import argparse
+
 import megatableau
 import geneval
 import optimizer
 
 # Parse command line arguments
-## TODO: parse four arguments: `tableau_file_name`, `constraint_file_name`, `alphabet` (optional), `k` (optional?)
+parser = argparse.ArgumentParser(description = 'Maximum entropy harmonic grammar')
+parser.add_argument('attested_file_name', help='Name of input file')
+parser.add_argument('constraint_file_name', help='Name of constraints file')
+parser.add_argument('-a', '--alphabet_file_name', default=None, help='List of segments in alphabet; one per line')
+parser.add_argument('-m', '--maxstrlen', default=6, help='Maximum string length in contrast set')
+
+parser.add_argument('-l', '--L1', type=float, default=1.0, help='Multiplier for L1 regularizer')
+parser.add_argument('-L', '--L2', type=float, default=None, help='Multiplier for L1 regularizer')
+parser.add_argument('-p', '--precision', type=float, default=10000000, help='Precision for gradient search (see docs)')
+
+args = parser.parse_args()
+
 
 # Create and fill MegaTableau
 mt = megatableau.MegaTableau()
-geneval.read_data_only(mt, tableau_file_name) # read in attested forms and add to MegaTableau
-## TODO: figure out alphabet if not provided, and/or get a default value for k if it's not provided
-geneval.augment_sigma_k(mt, alphabet, k) # add non-attested forms to tableau
+
+# read in attested forms and add to MegaTableau
+geneval.read_data_only(mt, args.attested_file_name) 
+
+# get alphabet
+if args.alphabet_file_name:
+    alphabet = geneval.read_alphabet_file(args.alphabet_file_name)
+else:
+    alphabet = geneval.infer_alphabet(mt)
+
+## # add non-attested forms to tableau
+geneval.augment_sigma_k(mt, alphabet, args.maxstrlen) 
 ## TODO: read in constraints and turn them into a list of strings called `constraints`
 geneval.apply_mark_list(mt, constraints)
 
@@ -17,7 +39,7 @@ geneval.apply_mark_list(mt, constraints)
 ## TODO: this.
 
 # Optimize weights
-optimizer.learn_weights(mt) # weights are now stored in mt.weights in the same order as mt.constraints
+optimizer.learn_weights(mt, args.L1, args.L2, args.precision) # weights are now stored in mt.weights in the same order as mt.constraints
 
 # Output file
 ## TODO: construct and output the augmented MEGT input file
