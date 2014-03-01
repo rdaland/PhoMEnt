@@ -51,42 +51,57 @@ class MegaTableau(object):
         megt_file: string representation of an OTSoft input file.
         """
         with open(megt_file) as f:
-            fstr = f.read().rstrip().split('\n') #making list of all rows
-            self.constraints = fstr[0].split('\t')[3:] #populating constraints
-            self.constraints_abbrev = fstr[1].split('\t')[3:] #populating constraint abbreviations
-
-            for line in fstr[2:]:
-                splitline = line.split('\t')
-                current_input = splitline[0] if splitline[0] else current_input
-                current_output = splitline[1]
-                freq = float(splitline[2])
-                violations = [float(v) if v else 0.0 for v in splitline[3:]]
-                for blank in range(len(self.constraints)-len(splitline[3:])): #in case the user doesn't add blank tabs
-                    violations.append(0.0)
-                self.tableau[current_input][current_output] = [freq,violations,0] #frequency, violations, maxent_val
-            self.weights = numpy.zeros(len(splitline[3:])) # starting weights
+            #fstr = f.read().rstrip().split('\n') #making list of all rows
+            self.constraints = f.readline().rstrip('\n').split('\t')[3:] #populating constraints
+            self.constraints_abbrev = f.readline().rstrip('\n').split('\t')[3:]#populating constraint abbreviations
+            self.weights = numpy.zeros(len(self.constraints)) # starting weights
+            for line in f:
+                splitline = line.rstrip('\n').split('\t')
+                if len(splitline) > 3:
+                    current_input = splitline[0] if splitline[0] else current_input
+                    current_output = splitline[1]
+                    freq = float(splitline[2])
+                    violations = [float(v) if v else 0.0 for v in splitline[3:]]
+                    for blank in range(len(self.constraints)-len(splitline[3:])): #in case the user doesn't add blank tabs
+                        violations.append(0.0)
+                    self.tableau[current_input][current_output] = [freq,violations,0] #frequency, violations, maxent_val
 
     def read_weights_file(self, weights_file):
         """
-        Read in a file containing constraint weights.
+        Read in a file containing (potentially null) constraint weights.
         Each line in the file is either:
             (constraint name)\t(weight)
             or
             (weight)
         In the former case, weights can be in any order as long as the name-weight associations are right.
         In the latter case, the weights must be in the same order as in the MEGT input file.
-        Files mixing the two conventions will throw an exception.
+        Files mixing the two conventions must be in the same order as in the MEGT input file.
         """
         with open(weights_file) as f:
-            slines = [line.split('\t') for line in f.read().rstrip().split('\n')]
-            try:
-                self.weights = [float(sline[0]) for sline in slines]
-            except ValueError:
-                try:
-                    weights_dict = {constraint: float(weight) for constraint,weight in slines}
-                    self.weights = [weights_dict[constraint] for constraint in self.constraints]
-                except:
-                    raise Exception("Input file not in one of the standard formats.")
+            #to complain about not having all constraint names specified
+            constraintFlags = []
+            #to cope when constraint names are not specified
+            counter = 0
+            if len(self.weights) != len(self.constraints):
+                print "please run self.read_megt_file() before self.read_weights_file()."
+                return
+            posDict = {constraint:pos for pos, constraint in enumerate(self.constraints)}
+            for line in f:
+                splitline = line.rstrip().split('\t')
+                flag = False
+                if len(splitline) == 1:
+                    flag = True
+                    if splitline[0]:
+                        self.weights[counter] = float(splitline[0])
+                if len(splitline) == 2:
+                    if splitline[1]:
+                        self.weights[posDict[splitline[0]]] = float(splitline[1])
+                constraintFlags.append(flag)
+                counter += 1
+            if any(constraintFlags):
+                for pos, conFlag in enumerate(constraintFlags):
+                    if conFlag == True:
+                        print "constraint", pos, "has no name in weight file, coping ..."
 
     def write_output(self):
         """Needs to be written"""

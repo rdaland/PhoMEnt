@@ -2,6 +2,9 @@ import megatableau
 import re
 
 def read_data_only(mt, dataFile):
+    """
+    update megatableau with io pairs, frequency from user input.
+    """
     with open(dataFile) as fileIn:
         for line in fileIn:
             parsed = line.rstrip().split('\t')
@@ -14,9 +17,24 @@ def read_data_only(mt, dataFile):
                 mt.tableau[parsed[0]][parsed[1]] = [float(parsed[2]), None, 0]
 
 ## read in constraints and turn them into a list of strings called `constraints`
-def read_constraints(args.constraint_file_name)
-    ## TODO: write this function
-    return(None)
+def read_constraints(mt, constraintFile):
+    """
+    update mt.constraints, mt.constraints_abbrev, mt.weights with user input
+    """
+    with open(constraintFile) as f:
+        for line in f:
+            splitline = line.rstrip().split('\t')
+            if len(splitline) == 1:
+                print "we need constraint, weight pairs. Ignoring", splitline
+            if len(splitline) == 2:
+                if splitline[1]:
+                    mt.weights.append(float(splitline[1]))
+                else:
+                    mt.weights.append(0.0)
+                mt.constraints.append(splitline[0])
+                mt.constraints_abbrev.append(splitline[0])
+    mt.weights = numpy.array(mt.weights)
+    #return mt.constraints
 
 
 def read_sigma(mt, sigmaFile = False):
