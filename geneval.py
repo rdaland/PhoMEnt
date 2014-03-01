@@ -29,8 +29,8 @@ def read_constraints(mt, constraintFile):
         for line in f:
             splitline = line.rstrip().split('\t')
             if len(splitline) == 1:
-		constraintList.append(splitline[0])
-		mt.weights.append(0.0)
+                constraintList.append(splitline[0])
+                mt.weights.append(0.0)
                 #print "we need constraint, weight pairs. Ignoring", splitline
             if len(splitline) == 2:
                 if splitline[1]:
