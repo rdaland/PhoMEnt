@@ -26,9 +26,9 @@ geneval.read_data_only(mt, args.attested_file_name)
 
 # get alphabet
 if args.alphabet_file_name:
-    alphabet = geneval.read_alphabet_file(args.alphabet_file_name)
+    alphabet = geneval.read_sigma(mt, args.alphabet_file_name)
 else:
-    alphabet = geneval.infer_alphabet(mt)
+    alphabet = geneval.read_sigma(mt)
 
 ## # add non-attested forms to tableau
 geneval.augment_sigma_k(mt, alphabet, args.maxstrlen) 

@@ -1,18 +1,6 @@
 import megatableau
 import re
 
-## TODO: define function read_alphabet_file(args.alphabet_file_name)
-##    this function needs to read the alphabet file, and return
-##    the alphabet in an appropriate format (I believe a list of segments)
-
-def infer_alphabet(mt):
-    alphabet = set()
-    for UR in mt.tableau:
-           for SR in mt.tableau[UR]:
-               for letter in SR.split():
-                   alphabet.add(letter)
-    return list(alphabet)
-
 def read_data_only(mt, dataFile):
     with open(dataFile) as fileIn:
         for line in fileIn:
