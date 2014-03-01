@@ -38,13 +38,13 @@ else:
     alphabet = geneval.read_sigma(mt)
 
 ## read in constraints
-geneval.read_constraints(mt, args.constraint_file_name)
+constraints = geneval.read_constraints(mt, args.constraint_file_name)
 
 ## add non-attested forms to tableau
 geneval.augment_sigma_k(mt, alphabet, args.maxstrlen) 
 
 ## apply constraints (this is the costliest step...)
-geneval.apply_mark_list(mt, mt.constraints)
+geneval.apply_mark_list(mt, constraints)
 
 # Optimize mt.weights
 optimizer.learn_weights(mt, args.L1, args.L2, args.precision)

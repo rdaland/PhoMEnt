@@ -19,8 +19,11 @@ def read_data_only(mt, dataFile):
 ## read in constraints and turn them into a list of strings called `constraints`
 def read_constraints(mt, constraintFile):
     """
-    update mt.constraints, mt.constraints_abbrev, mt.weights with user input
+    update mt.weights with user input
+    return constraints as a list.
+        mt.constraints is updated when the constraint list is applied to the data by apply_mark_list()
     """
+    constraintList = []
     with open(constraintFile) as f:
         for line in f:
             splitline = line.rstrip().split('\t')
@@ -31,10 +34,9 @@ def read_constraints(mt, constraintFile):
                     mt.weights.append(float(splitline[1]))
                 else:
                     mt.weights.append(0.0)
-                mt.constraints.append(splitline[0])
-                mt.constraints_abbrev.append(splitline[0])
+                constraintList.append(splitline[0])
     mt.weights = numpy.array(mt.weights)
-    #return mt.constraints
+    return constraintList
 
 
 def read_sigma(mt, sigmaFile = False):
