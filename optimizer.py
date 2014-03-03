@@ -35,7 +35,7 @@ def update_maxent_values(weights, tableau):
 
 ### OBJECTIVE FUNCTION(S) ###
 
-def neg_log_probability_with_gradient(weights, tableau, l1_prior=1.0):
+def neg_log_probability_with_gradient(weights, tableau, l1_prior=1.0, l2_prior=0.0):
     """ Returns the negative log probability of the data AND a gradient vector.
     This is the objective function used in learn_weights().
     """
@@ -45,8 +45,8 @@ def neg_log_probability_with_gradient(weights, tableau, l1_prior=1.0):
     expected = [0 for i in range(len(weights))] # Vector of expected violations
     data_size = 0 # Number of total data points: the sum of all counts.
 
-    prob_prior = sum([l1_prior*w for w in weights])
-    grad_prior = [l1_prior for w in weights]
+    prob_prior = sum([(l1_prior*w) + (l2_prior*(w**2)) for w in weights])
+    grad_prior = [(l1_prior) + (2*l2_prior) for w in weights]
 
     for ur in tableau:
         z = z_score(tableau, ur)
@@ -66,7 +66,7 @@ def neg_log_probability_with_gradient(weights, tableau, l1_prior=1.0):
 
 nlpwg = neg_log_probability_with_gradient # So you don't get carpal tunnel syndrome.
 
-def neg_log_probability(weights, tableau, l1_prior=1.0):
+def neg_log_probability(weights, tableau, l1_prior=1.0, l2_prior=0.0):
     """ Returns just the negative log probability of the data.
     This function isn't currently used, it's just here in case you want it.
     """
@@ -96,7 +96,7 @@ def learn_weights(mt, L1 = 1.0, L2 = 0.0, precision = 10000000):
     prec = precision or 10000000 # TODO: plus prec into optimize call
 
     # Find the best weights
-    learned_weights, fneval, rc = scipy.optimize.fmin_l_bfgs_b(nlpwg, w_0, args = (mt.tableau,), bounds=nonpos_reals)
+    learned_weights, fneval, rc = scipy.optimize.fmin_l_bfgs_b(nlpwg, w_0, args = (mt.tableau,l1_reg,l2_reg), bounds=nonpos_reals)
 
     # Update the mt in place with the new weights
     mt.weights = learned_weights
