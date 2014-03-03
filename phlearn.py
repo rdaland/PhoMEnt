@@ -11,7 +11,7 @@ parser = argparse.ArgumentParser(description = 'Maximum entropy harmonic grammar
 parser.add_argument('attested_file_name', help='Name of input file')
 parser.add_argument('constraint_file_name', help='Name of constraints file')
 parser.add_argument('-a', '--alphabet_file_name', default=None, help='List of segments in alphabet; one per line')
-parser.add_argument('-m', '--maxstrlen', default=6, help='Maximum string length in contrast set')
+parser.add_argument('-m', '--maxstrlen', type=int, default=6, help='Maximum string length in contrast set')
 parser.add_argument('-o', '--outfile', help='Name of output file')
 
 ## weight-setting parameters
