@@ -3,6 +3,7 @@
 import sys
 from collections import defaultdict
 import numpy
+import optimizer
 
 class MegaTableau(object):
 
@@ -104,7 +105,29 @@ class MegaTableau(object):
                         print "constraint", pos, "has no name in weight file, coping ..."
 
     def write_output(self):
-        """Needs to be written"""
-        pass
-        ## TODO: Write this function
 
+        file = open("outputfile.txt","w")
+        file.write("\t\t")
+        for constraint in self.constraints:
+            file.write(constraint+"\t")
+        file.write("\n")
+        file.write("\t\t")
+        for constraint_abbrev in self.constraints_abbrev:
+            file.write(constraint_abbrev+"\t")
+        file.write("\n")
+        file.write("\t\t")
+        for weight in self.weights:
+            file.write(str(weight)+"\t")
+        file.write("\n")
+        for inp in self.tableau:
+            file.write(inp+"\t")
+            for outp in self.tableau[inp]:
+                file.write(outp+"\t")
+                file.write(str(self.tableau[inp][outp][0])+"\t")
+                for viol in self.tableau[inp][outp][1]:
+                    file.write(str(viol)+"\t")
+                file.write(str(self.tableau[inp][outp][2])+"\t")
+                file.write(str(self.tableau[inp][outp][2]/optimizer.z_score(self.tableau,inp))+"\t")
+                file.write("\n")
+        file.write(str(optimizer.neg_log_probability(self.weights, self.tableau)))
+        file.close()
