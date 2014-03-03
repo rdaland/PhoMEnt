@@ -102,11 +102,10 @@ def learn_weights(mt, L1 = 1.0, L2 = 0.0, precision = 10000000):
     mt.weights = learned_weights
 
     # Be sociable
-    print "Log probability with initial weights:", -(nlpwg(w_0, mt.tableau))[0]
-    print "             ...with learned weights:", -(nlpwg(learned_weights, mt.tableau))[0]
     print "\nBoom! Weights have been updated:"
     for i in range(0,len(learned_weights)):
         print mt.constraints_abbrev[i],"\t",learned_weights[i]
+    print "\nLog probability of data:", -(nlpwg(learned_weights, mt.tableau))[0]
     print ""
 
     # Return
