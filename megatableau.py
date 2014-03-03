@@ -104,42 +104,47 @@ class MegaTableau(object):
                     if conFlag == True:
                         print "constraint", pos, "has no name in weight file, coping ..."
 
-    def write_output(self):
+    def write_output(self, file_name):
         ''' Write a text file with the information in the megatableau object
         '''
-        file = open("outputfile.txt","w")
+        file = open(file_name,"w")
 
         # Add 1st line with constraint names
-        file.write("\t\t\t")
+        file.write("\t\t\t\t\t")
         for constraint in self.constraints:
             file.write(constraint+"\t")
         file.write("\n")
 
         # Add 2nd line with constraint abbreviations
-        file.write("\t\t\t")
+        file.write("\t\t\t\t\t")
         for constraint_abbrev in self.constraints_abbrev:
             file.write(constraint_abbrev+"\t")
         file.write("\n")
 
         # Add 3rd line with constraint weights, headers
-        file.write("\t\t\t")
+        file.write("\t\tObs\tExp\tprob\t")
         for weight in self.weights:
             file.write(str(round(weight,3))+"\t")
-        file.write("P*\tprob") # Headers
         file.write("\n")
 
         # Add inputs, outputs, violations
         for inp in self.tableau:
-            file.write(inp+"\t") # Add input
+            file.write(inp) # Add input
             zscore = optimizer.z_score(self.tableau,inp)
+            total = 0
+            for outp in self.tableau[inp]:          # Count total occurances of this UR
+                total += self.tableau[inp][outp][0]
             for outp in self.tableau[inp]:
-                file.write(outp+"\t") # Add output
-                file.write(str(self.tableau[inp][outp][0])+"\t") # Add count
-                for viol in self.tableau[inp][outp][1]:          # Add violations
+                obs  = self.tableau[inp][outp][0]
+                prob = self.tableau[inp][outp][2] / zscore
+                exp  = prob * total
+                file.write("\t"+outp+"\t")              # Add output
+                file.write(str(obs)+"\t")               # Add observed counts
+                file.write(str(round(exp, 1))+"\t")     # Add expected counts
+                file.write(str(round(prob, 4))+"\t")    # Add probability
+                for viol in self.tableau[inp][outp][1]: # Add violations
                     file.write(str(viol)+"\t")
-                file.write(str(round(self.tableau[inp][outp][2], 4))+"\t") # Add maxent value
-                file.write(str(round(self.tableau[inp][outp][2] / zscore, 4))+"\t") # Add probability
-                file.write("\n\t")
+                file.write("\n")
 
         # Add data probability
         file.write("\nLog probability: ")
