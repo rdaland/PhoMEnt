@@ -110,21 +110,22 @@ class MegaTableau(object):
         file = open("outputfile.txt","w")
 
         # Add 1st line with constraint names
-        file.write("\t\t")
+        file.write("\t\t\t")
         for constraint in self.constraints:
             file.write(constraint+"\t")
         file.write("\n")
 
         # Add 2nd line with constraint abbreviations
-        file.write("\t\t")
+        file.write("\t\t\t")
         for constraint_abbrev in self.constraints_abbrev:
             file.write(constraint_abbrev+"\t")
         file.write("\n")
 
-        # Add 3rd line with constraint weights
-        file.write("\t\t")
+        # Add 3rd line with constraint weights, headers
+        file.write("\t\t\t")
         for weight in self.weights:
-            file.write(str(weight)+"\t")
+            file.write(str(round(weight,3))+"\t")
+        file.write("P*\tprob") # Headers
         file.write("\n")
 
         # Add inputs, outputs, violations
@@ -136,12 +137,13 @@ class MegaTableau(object):
                 file.write(str(self.tableau[inp][outp][0])+"\t") # Add count
                 for viol in self.tableau[inp][outp][1]:          # Add violations
                     file.write(str(viol)+"\t")
-                file.write(str(self.tableau[inp][outp][2])+"\t") # Add maxent value
-                file.write(str(self.tableau[inp][outp][2] / zscore)+"\t") # Add probability
-                file.write("\n")
+                file.write(str(round(self.tableau[inp][outp][2], 4))+"\t") # Add maxent value
+                file.write(str(round(self.tableau[inp][outp][2] / zscore, 4))+"\t") # Add probability
+                file.write("\n\t")
 
         # Add data probability
-        file.write(str(optimizer.neg_log_probability(self.weights, self.tableau)))
+        file.write("\nLog probability: ")
+        file.write(str(-optimizer.neg_log_probability(self.weights, self.tableau)))
 
         # Done
         file.close()
