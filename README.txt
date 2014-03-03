@@ -1,6 +1,6 @@
 PhoMEnt
 =======
-
+PhoMEnt can 
 Maximum entropy phonotactic learner ##I left the name as it is for now (but our program is not a phonotactic learner...)##
 
 Contributors: Dustin Bowers, Robert Daland, Michael Lefkowitz, Jesse Zymet, Yun Kim, Blake Allen, and Paige Fox
@@ -36,7 +36,7 @@ Using an input file, you feed the program:
 	Make a file that has underlying representations with observed frequencies. Please look at the sample "phx_test.txt". The format is ordinary text, tap-delimited.
 
 3.3 Put constraints in the itworks.py 
-	Mkae constraints and put them in line #9 as a list. Please look at the "ltworks.py" line 9. 
+	Make constraints and put them in line #9 as a list. Please look at the "ltworks.py" line 9. 
 	
 3.4 Run itworks.py in python 
 	It will give you the probability of the observed data and constraint weights.
