@@ -1,0 +1,5 @@
+[ptkmnNlrwja]
+^a
+^[lr]
+^[N]
+^[lraN]

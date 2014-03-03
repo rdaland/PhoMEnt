@@ -1,315 +1,313 @@
-p a
-t a
-k a
-m a
-n a
-w a
-j a
-p a p
-p a t
-p a k
-p a m
-p a n
-p a N
-p a l
-t a p
-t a t
-t a k
-t a m
-t a n
-t a N
-t a l
-k a p
-k a t
-k a k
-k a m
-k a n
-k a N
-k a l
-
-p a p a
-p a t a
-p a k a
-p a m a
-p a n a
-p a r a
-p a l l a
-p a w a
-p a j a
-t a p a
-t a t a
-t a k a
-t a m a
-t a n a
-t a l l a
-t a r a
-t a w a
-t a j a
-k a p a
-k a t a
-k a k a
-k a m a
-k a n a
-k a l l a
-k a r a
-k a w a
-k a j a
-m a p a
-m a t a
-m a k a
-m a m a
-m a n a
-m a r a
-m a l l a
-m a w a
-m a j a
-n a p a
-n a t a
-n a k a
-n a m a
-n a n a
-n a l l a
-n a r a
-n a w a
-n a j a
-w a p a
-w a t a
-w a k a
-w a m a
-w a n a
-w a r a
-w a l l a
-w a w a
-w a j a
-j a p a
-j a t a
-j a k a
-j a m a
-j a n a
-j a l l a
-j a r a
-j a w a
-j a j a
-p a p p a
-p a p t a
-p a p w a
-p a p j a
-t a p p a
-t a p t a
-t a p w a
-t a p j a
-k a p p a
-k a p t a
-k a p w a
-k a p j a
-m a p p a
-m a p t a
-m a p w a
-m a p j a
-n a p p a
-n a p t a
-n a p w a
-n a p j a
-w a p p a
-w a p t a
-w a p w a
-w a p j a
-j a p p a
-j a p t a
-j a p w a
-j a p j a
-p a t t a
-p a t w a
-p a t j a
-t a t t a
-t a t w a
-t a t j a
-k a t t a
-k a t w a
-k a t j a
-m a t t a
-m a t w a
-m a t j a
-n a t t a
-n a t w a
-n a t j a
-w a t t a
-w a t w a
-w a t j a
-j a t t a
-j a t w a
-j a t j a
-p a k p a
-p a k t a
-p a k k a
-p a k w a
-p a k j a
-t a k p a
-t a k t a
-t a k k a
-t a k w a
-t a k j a
-k a k p a
-k a k t a
-k a k k a
-k a k w a
-k a k j a
-m a k p a
-m a k t a
-m a k k a
-m a k w a
-m a k j a
-n a k p a
-n a k t a
-n a k k a
-n a k w a
-n a k j a
-w a k p a
-w a k t a
-w a k k a
-w a k w a
-w a k j a
-j a k p a
-j a k t a
-j a k k a
-j a k w a
-j a k j a
-p a m p a
-p a m m a
-p a m n a
-p a m w a
-p a m j a
-t a m p a
-t a m t a
-t a m m a
-t a m n a
-t a m w a
-t a m j a
-k a m p a
-k a m t a
-k a m m a
-k a m n a
-k a m w a
-k a m j a
-m a m p a
-m a m t a
-m a m m a
-m a m n a
-m a m w a
-m a m j a
-n a m p a
-n a m t a
-n a m m a
-n a m n a
-n a m w a
-n a m j a
-w a m p a
-w a m t a
-w a m m a
-w a m n a
-w a m w a
-w a m j a
-j a m p a
-j a m t a
-j a m m a
-j a m n a
-j a m w a
-j a m j a
-p a n t a
-p a n n a
-p a n w a
-p a n j a
-t a n t a
-t a n n a
-t a n w a
-t a n j a
-k a n t a
-k a n n a
-k a n w a
-k a n j a
-m a n t a
-m a n n a
-m a n w a
-m a n j a
-n a n t a
-n a n n a
-n a n w a
-n a n j a
-w a n t a
-w a n n a
-w a n w a
-w a n j a
-j a n t a
-j a n n a
-j a n w a
-j a n j a
-p a N p a
-p a N t a
-p a N k a
-p a N m a
-p a N n a
-t a N p a
-t a N t a
-t a N k a
-t a N m a
-t a N n a
-k a N p a
-k a N t a
-k a N k a
-k a N m a
-k a N n a
-m a N p a
-m a N t a
-m a N k a
-m a N m a
-m a N n a
-n a N p a
-n a N t a
-n a N k a
-n a N m a
-n a N n a
-w a N p a
-w a N t a
-w a N k a
-w a N m a
-w a N n a
-j a N p a
-j a N t a
-j a N k a
-j a N m a
-j a N n a
-p a l p a
-p a l t a
-p a l k a
-p a l l a
-p a l w a
-p a l j a
-t a l p a
-t a l t a
-t a l k a
-k a l p a
-k a l t a
-k a l k a
-k a l w a
-k a l j a
-m a l p a
-m a l t a
-m a l k a
-m a l w a
-m a l j a
-n a l p a
-n a l t a
-n a l k a
-n a l w a
-n a l j a
-w a l p a
-w a l t a
-w a l k a
-w a l w a
-w a l j a
-j a l p a
-j a l t a
-j a l k a
-j a l w a
-j a l j a
-
+p a	1
+t a	1
+k a	1
+m a	1
+n a	1
+w a	1
+j a	1
+p a p	1
+p a t	1
+p a k	1
+p a m	1
+p a n	1
+p a N	1
+p a l	1
+t a p	1
+t a t	1
+t a k	1
+t a m	1
+t a n	1
+t a N	1
+t a l	1
+k a p	1
+k a t	1
+k a k	1
+k a m	1
+k a n	1
+k a N	1
+k a l	1
+p a p a	1
+p a t a	1
+p a k a	1
+p a m a	1
+p a n a	1
+p a r a	1
+p a l l a	1
+p a w a	1
+p a j a	1
+t a p a	1
+t a t a	1
+t a k a	1
+t a m a	1
+t a n a	1
+t a l l a	1
+t a r a	1
+t a w a	1
+t a j a	1
+k a p a	1
+k a t a	1
+k a k a	1
+k a m a	1
+k a n a	1
+k a l l a	1
+k a r a	1
+k a w a	1
+k a j a	1
+m a p a	1
+m a t a	1
+m a k a	1
+m a m a	1
+m a n a	1
+m a r a	1
+m a l l a	1
+m a w a	1
+m a j a	1
+n a p a	1
+n a t a	1
+n a k a	1
+n a m a	1
+n a n a	1
+n a l l a	1
+n a r a	1
+n a w a	1
+n a j a	1
+w a p a	1
+w a t a	1
+w a k a	1
+w a m a	1
+w a n a	1
+w a r a	1
+w a l l a	1
+w a w a	1
+w a j a	1
+j a p a	1
+j a t a	1
+j a k a	1
+j a m a	1
+j a n a	1
+j a l l a	1
+j a r a	1
+j a w a	1
+j a j a	1
+p a p p a	1
+p a p t a	1
+p a p w a	1
+p a p j a	1
+t a p p a	1
+t a p t a	1
+t a p w a	1
+t a p j a	1
+k a p p a	1
+k a p t a	1
+k a p w a	1
+k a p j a	1
+m a p p a	1
+m a p t a	1
+m a p w a	1
+m a p j a	1
+n a p p a	1
+n a p t a	1
+n a p w a	1
+n a p j a	1
+w a p p a	1
+w a p t a	1
+w a p w a	1
+w a p j a	1
+j a p p a	1
+j a p t a	1
+j a p w a	1
+j a p j a	1
+p a t t a	1
+p a t w a	1
+p a t j a	1
+t a t t a	1
+t a t w a	1
+t a t j a	1
+k a t t a	1
+k a t w a	1
+k a t j a	1
+m a t t a	1
+m a t w a	1
+m a t j a	1
+n a t t a	1
+n a t w a	1
+n a t j a	1
+w a t t a	1
+w a t w a	1
+w a t j a	1
+j a t t a	1
+j a t w a	1
+j a t j a	1
+p a k p a	1
+p a k t a	1
+p a k k a	1
+p a k w a	1
+p a k j a	1
+t a k p a	1
+t a k t a	1
+t a k k a	1
+t a k w a	1
+t a k j a	1
+k a k p a	1
+k a k t a	1
+k a k k a	1
+k a k w a	1
+k a k j a	1
+m a k p a	1
+m a k t a	1
+m a k k a	1
+m a k w a	1
+m a k j a	1
+n a k p a	1
+n a k t a	1
+n a k k a	1
+n a k w a	1
+n a k j a	1
+w a k p a	1
+w a k t a	1
+w a k k a	1
+w a k w a	1
+w a k j a	1
+j a k p a	1
+j a k t a	1
+j a k k a	1
+j a k w a	1
+j a k j a	1
+p a m p a	1
+p a m m a	1
+p a m n a	1
+p a m w a	1
+p a m j a	1
+t a m p a	1
+t a m t a	1
+t a m m a	1
+t a m n a	1
+t a m w a	1
+t a m j a	1
+k a m p a	1
+k a m t a	1
+k a m m a	1
+k a m n a	1
+k a m w a	1
+k a m j a	1
+m a m p a	1
+m a m t a	1
+m a m m a	1
+m a m n a	1
+m a m w a	1
+m a m j a	1
+n a m p a	1
+n a m t a	1
+n a m m a	1
+n a m n a	1
+n a m w a	1
+n a m j a	1
+w a m p a	1
+w a m t a	1
+w a m m a	1
+w a m n a	1
+w a m w a	1
+w a m j a	1
+j a m p a	1
+j a m t a	1
+j a m m a	1
+j a m n a	1
+j a m w a	1
+j a m j a	1
+p a n t a	1
+p a n n a	1
+p a n w a	1
+p a n j a	1
+t a n t a	1
+t a n n a	1
+t a n w a	1
+t a n j a	1
+k a n t a	1
+k a n n a	1
+k a n w a	1
+k a n j a	1
+m a n t a	1
+m a n n a	1
+m a n w a	1
+m a n j a	1
+n a n t a	1
+n a n n a	1
+n a n w a	1
+n a n j a	1
+w a n t a	1
+w a n n a	1
+w a n w a	1
+w a n j a	1
+j a n t a	1
+j a n n a	1
+j a n w a	1
+j a n j a	1
+p a N p a	1
+p a N t a	1
+p a N k a	1
+p a N m a	1
+p a N n a	1
+t a N p a	1
+t a N t a	1
+t a N k a	1
+t a N m a	1
+t a N n a	1
+k a N p a	1
+k a N t a	1
+k a N k a	1
+k a N m a	1
+k a N n a	1
+m a N p a	1
+m a N t a	1
+m a N k a	1
+m a N m a	1
+m a N n a	1
+n a N p a	1
+n a N t a	1
+n a N k a	1
+n a N m a	1
+n a N n a	1
+w a N p a	1
+w a N t a	1
+w a N k a	1
+w a N m a	1
+w a N n a	1
+j a N p a	1
+j a N t a	1
+j a N k a	1
+j a N m a	1
+j a N n a	1
+p a l p a	1
+p a l t a	1
+p a l k a	1
+p a l l a	1
+p a l w a	1
+p a l j a	1
+t a l p a	1
+t a l t a	1
+t a l k a	1
+k a l p a	1
+k a l t a	1
+k a l k a	1
+k a l w a	1
+k a l j a	1
+m a l p a	1
+m a l t a	1
+m a l k a	1
+m a l w a	1
+m a l j a	1
+n a l p a	1
+n a l t a	1
+n a l k a	1
+n a l w a	1
+n a l j a	1
+w a l p a	1
+w a l t a	1
+w a l k a	1
+w a l w a	1
+w a l j a	1
+j a l p a	1
+j a l t a	1
+j a l k a	1
+j a l w a	1
+j a l j a	1
