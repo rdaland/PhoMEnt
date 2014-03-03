@@ -105,29 +105,43 @@ class MegaTableau(object):
                         print "constraint", pos, "has no name in weight file, coping ..."
 
     def write_output(self):
-
+        ''' Write a text file with the information in the megatableau object
+        '''
         file = open("outputfile.txt","w")
+
+        # Add 1st line with constraint names
         file.write("\t\t")
         for constraint in self.constraints:
             file.write(constraint+"\t")
         file.write("\n")
+
+        # Add 2nd line with constraint abbreviations
         file.write("\t\t")
         for constraint_abbrev in self.constraints_abbrev:
             file.write(constraint_abbrev+"\t")
         file.write("\n")
+
+        # Add 3rd line with constraint weights
         file.write("\t\t")
         for weight in self.weights:
             file.write(str(weight)+"\t")
         file.write("\n")
+
+        # Add inputs, outputs, violations
         for inp in self.tableau:
-            file.write(inp+"\t")
+            file.write(inp+"\t") # Add input
+            zscore = optimizer.z_score(self.tableau,inp)
             for outp in self.tableau[inp]:
-                file.write(outp+"\t")
-                file.write(str(self.tableau[inp][outp][0])+"\t")
-                for viol in self.tableau[inp][outp][1]:
+                file.write(outp+"\t") # Add output
+                file.write(str(self.tableau[inp][outp][0])+"\t") # Add count
+                for viol in self.tableau[inp][outp][1]:          # Add violations
                     file.write(str(viol)+"\t")
-                file.write(str(self.tableau[inp][outp][2])+"\t")
-                file.write(str(self.tableau[inp][outp][2]/optimizer.z_score(self.tableau,inp))+"\t")
+                file.write(str(self.tableau[inp][outp][2])+"\t") # Add maxent value
+                file.write(str(self.tableau[inp][outp][2] / zscore)+"\t") # Add probability
                 file.write("\n")
+
+        # Add data probability
         file.write(str(optimizer.neg_log_probability(self.weights, self.tableau)))
+
+        # Done
         file.close()
