@@ -1,13 +1,17 @@
 PhoMEnt
 =======
-PhoMEnt can 
-Maximum entropy phonotactic learner ##I left the name as it is for now (but our program is not a phonotactic learner...)##
+
+Maximum entropy phonotactic learner
 
 Contributors: Dustin Bowers, Robert Daland, Michael Lefkowitz, Jesse Zymet, Yun Kim, Blake Allen, and Paige Fox
 
+##README should tell a user what they need to know - how to use it, - how it works##
+
+
 Welcome!
-This program computes weights & probability of the observed data for constraint-based maxent grammars. 
-You make up a grammar consisting of constraints then train it using the program to match a corpus of data. 
+This program has two parts in it. First, it is a Maximum entropy model that computes weights & probability of the observed data for constraint-based maxent grammars. You make up a grammar consisting of constraints then train it using the program to match a corpus of data. 
+
+Second, it is a phonotactic learner that learns the phonotactics of a language when given contraints. You give possible words and relevant constraints and the program assigns violations to the constraints, learns the weights of the constraints and computes the probability of the observed data. 
 
 1. What You have to do.
 Using an input file, you feed the program:
