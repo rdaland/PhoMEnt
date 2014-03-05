@@ -1,12 +1,11 @@
 			*VC	*#V
 			*VC	*#V
-x	pa	1		
-	a	0	1	
+x	a	1		
 	b	0		1
-	c	0		
+	c	0	1	
 	d	0	1	1
-y	e	0		
+y	e	1		
 	f	0		1
 	g	0	1	
-	h	0		1
+	h	0	1	1
 
