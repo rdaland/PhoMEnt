@@ -109,6 +109,14 @@ class MegaTableau(object):
         '''
         file = open(file_name,"w")
 
+        # Create and sort list of input keys, and dictionary of lists of output keys.
+        inp_keys = self.tableau.keys()
+        inp_keys.sort()
+        outp_keys = {}
+        for i in inp_keys:
+            outp_keys[i] = self.tableau[i].keys()
+            outp_keys[i].sort()
+
         # Add 1st line with constraint names
         file.write("\t\t\t\t\t")
         for constraint in self.constraints:
@@ -128,16 +136,16 @@ class MegaTableau(object):
         file.write("\n")
 
         # Add inputs, outputs, violations
-        for inp in self.tableau:
+        for inp in inp_keys:
             file.write(inp) # Add input
             zscore = optimizer.z_score(self.tableau,inp)
             total = 0
-            for outp in self.tableau[inp]:          # Count total occurances of this UR
+            for outp in outp_keys[inp]: # Count total occurances of this UR
                 total += self.tableau[inp][outp][0]
-            for outp in self.tableau[inp]:
+            for outp in outp_keys[inp]:
                 obs  = self.tableau[inp][outp][0]
                 prob = self.tableau[inp][outp][2] / zscore
-                exp  = prob * total
+                exp  = prob * total     # Calculate expected counts
                 file.write("\t"+outp+"\t")              # Add output
                 file.write(str(obs)+"\t")               # Add observed counts
                 file.write(str(round(exp, 1))+"\t")     # Add expected counts
