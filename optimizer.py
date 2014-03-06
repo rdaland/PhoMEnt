@@ -12,7 +12,7 @@ def maxent_value(weights, tableau, ur, sr):
     """ Compute maxent value P* = exp(harmony) for a particular UR/SR pair.
     """
     harmony = 0
-    for c in range (0, len(weights)):
+    for c in tableau[ur][sr][1]:
         harmony += weights[c] * tableau[ur][sr][1][c]
     return math.exp(harmony)
 
@@ -54,7 +54,7 @@ def neg_log_probability_with_gradient(weights, tableau, l1_prior=1.0, l2_prior=0
             data_size += tableau[ur][sr][0]
             prob = tableau[ur][sr][2] / z
             logProbDat += math.log(prob) * tableau[ur][sr][0]
-            for c in range(len(tableau[ur][sr][1])):
+            for c in tableau[ur][sr][1]:
                 observed[c] += tableau[ur][sr][1][c] * tableau[ur][sr][0]
                 expected[c] += tableau[ur][sr][1][c] * prob
     logProbDat += prob_prior

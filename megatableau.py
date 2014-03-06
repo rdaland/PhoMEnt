@@ -18,10 +18,10 @@ class MegaTableau(object):
             *DO NOT PUT CANDIDATES ON THE SECOND LINE OF THE INPUT FILE*
         self.weights ------------ a list of weights for constraints
         self.tableau ------------ a dictionary of dictionaries:
-            {input: {output: [freq, violVec, maxentScore]}}
+            {input: {output: [freq, violDic, maxentScore]}}
             freq = float()
-            violations = list of constraint violations (integers).
-                Order is order of constraints in self.constraints, etc
+            violDic = dictionary of constraint violations (integers). 
+                Keys are constraint indecies, based on order of constraints in self.constraints
             maxentScore = e**harmony. Initialized to zero (because harmony is undefined without weights).
     Contains the following methods:
         self.read_megt_file(megt_file) - moves the data from the .txt file to the attributes
@@ -48,7 +48,7 @@ class MegaTableau(object):
         Populates the following attributes with data from megt_file
             self.constraints -------- list of constraint names
             self.constraints_abbrev - list of abbreviations of constraint names
-            self.tableau ------------ dictionary: {input: {output: [freq, violVec, maxentScore]}}
+            self.tableau ------------ dictionary: {input: {output: [freq, violDic, maxentScore]}}
         megt_file: string representation of an OTSoft input file.
         """
         with open(megt_file) as f:
@@ -62,9 +62,11 @@ class MegaTableau(object):
                     current_input = splitline[0] if splitline[0] else current_input
                     current_output = splitline[1]
                     freq = float(splitline[2])
-                    violations = [float(v) if v else 0.0 for v in splitline[3:]]
-                    for blank in range(len(self.constraints)-len(splitline[3:])): #in case the user doesn't add blank tabs
-                        violations.append(0.0)
+                    viol_vec = [int(v) if v else None for v in splitline[3:]]
+                    violations = {}
+                    for c in range(0,len(viol_vec)):   # use indecies for constraint keys
+                        if viol_vec[c]:
+                            violations[c] = viol_vec[c]
                     self.tableau[current_input][current_output] = [freq,violations,0] #frequency, violations, maxent_val
 
     def read_weights_file(self, weights_file):
@@ -139,6 +141,7 @@ class MegaTableau(object):
         for inp in inp_keys:
             file.write(inp) # Add input
             zscore = optimizer.z_score(self.tableau,inp)
+            assert zscore != 0, "Can't print a tableau before updating its maxent values."
             total = 0
             for outp in outp_keys[inp]: # Count total occurances of this UR
                 total += self.tableau[inp][outp][0]
@@ -150,8 +153,10 @@ class MegaTableau(object):
                 file.write(str(obs)+"\t")               # Add observed counts
                 file.write(str(round(exp, 1))+"\t")     # Add expected counts
                 file.write(str(round(prob, 4))+"\t")    # Add probability
-                for viol in self.tableau[inp][outp][1]: # Add violations
-                    file.write(str(viol)+"\t")
+                for c in range(0,len(self.constraints)):# Add violations
+                    if c in self.tableau[inp][outp][1].keys():
+                        file.write(str(self.tableau[inp][outp][1][c]))
+                    file.write("\t")
                 file.write("\n")
 
         # Add data probability
