@@ -21,8 +21,8 @@ parser.add_argument('-m', '--maxstrlen', type=int, default=5, help='Maximum stri
 parser.add_argument('-o', '--outfile', help='Name of output file')
 
 ## weight-setting parameters
-parser.add_argument('-l', '--L1', type=float, default=1.0, help='Multiplier for L1 regularizer')
-parser.add_argument('-L', '--L2', type=float, default=None, help='Multiplier for L1 regularizer')
+parser.add_argument('-l', '--L1', type=float, default=0.0, help='Multiplier for L1 regularizer')
+parser.add_argument('-L', '--L2', type=float, default=0.0, help='Multiplier for L1 regularizer')
 parser.add_argument('-p', '--precision', type=float, default=10000000, help='Precision for gradient search (see docs)')
 
 args = parser.parse_args()
