@@ -86,7 +86,9 @@ def apply_mark_list(mt, markList):
         for UR in mt.tableau:
             for SR in mt.tableau[UR]:
                 for c in range(new_cons_start,len(mt.constraints)):
-                    mt.tableau[UR][SR][1][c] = violations(re.compile(mt.constraints[c]),SR)
+                    viols = violations(re.compile(mt.constraints[c]),SR)
+                    if viols != 0:
+                        mt.tableau[UR][SR][1][c] = viols
 
 	#weights already added by read_constraints()
 	#fwiw, mt.weights has been converted to a numpy array
