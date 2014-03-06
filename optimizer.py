@@ -72,15 +72,14 @@ nlpwg = neg_log_probability_with_gradient # So you don't get carpal tunnel syndr
 
 def neg_log_probability(weights, tableau, l1_mult=0.0, l2_mult=0.0):
     """ Returns just the negative log probability of the data.
-    This function isn't currently used, it's just here in case you want it.
     """
-    return (nlpwg(weights, tableau, l1_prior))[0]
+    return (nlpwg(weights, tableau, l1_mult, l2_mult))[0]
 
-def probability(weights, tableau):
+def probability(weights, tableau, l1_mult=0.0, l2_mult=0.0):
     """ Returns just the probability of the data.
     This function isn't currently used, it's just here in case you want it.
     """
-    return math.exp(-(nlpwg(weights, tableau))[0])
+    return math.exp(-(nlpwg(weights, tableau, l1_mult, l2_mult))[0])
 
 
 ### OPTIMIZATION FUNCTION
