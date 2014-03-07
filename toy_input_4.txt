@@ -1,0 +1,17 @@
+			*ss	agree	max	dep
+			*ss	agree	max	dep
+cat+z	catz	0		1		
+	cats	1				
+	catiz	0				1
+	catis	0				1
+	cat	0			1	
+dog+z	dogz	1				
+	dogs	0		1		
+	dogiz	0				1
+	dogis	0				1
+	dog	0			1	
+dish+z	dishz	0	1	1		
+	dishs	0	1			
+	dishiz	1				1
+	dishis	0				1
+	dish	0			1	
