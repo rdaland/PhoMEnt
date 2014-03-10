@@ -8,8 +8,8 @@ Contributors:  Robert Daland, Michael Lefkowitz, Blake Allen, Jesse Zymet, Dusti
 Welcome to PhoMEnt!
 
 CONTENTS:
-	1) Command line tool for a maximum entropy learner (maxent.py)
-	2) Command line tool for basic phonotactic learning following Hayes and Wilson 2008 (phlearn.py)
+	1) Command line tool for learning weights in a maximum entropy harmonic grammar (maxent.py)
+	2) Command line tool for basic phonotactic learner following Hayes and Wilson 2008 (phlearn.py)
 	3) Source code that supports 1 and 2 above (megatableau.py, optimizer.py, geneval.py)
 	4) Example files (*.txt)
 
@@ -19,7 +19,7 @@ PREREQS:
 		http://python.org/download/
 		http://www.scipy.org/install.html
 		NOTE: installing scipy can be a major headache.
-			We highly recommend using a package manager like Enthought Canopy 
+			We highly recommend using a distribution like Enthought Canopy 
 			(https://www.enthought.com/products/canopy/).
 			Canopy is free for users with a .edu email address.
 			Be warned: other Python installations may not see packages installed by Canopy.
@@ -64,6 +64,11 @@ COMMAND LINE HOW-TO:
 	Hit the "Enter" key
 	
 ACCESSING MORE OPTIONS:
+	To see how to use extra options, type:
+
+		python maxent.py -h
+		python phlearn.py -h
+	
 	If you want to write your results to a file (rather than to the terminal window), type one of:
 
 		python maxent.py tableau.txt -o output.txt
@@ -74,10 +79,6 @@ ACCESSING MORE OPTIONS:
 	All other options can be specified using similar syntax (-letter optionSpecification)
 	Currently, priors and precision can be changed in both maxent.py and phlearn.py
 	For phlearn.py, you can also modify the maximum string length for possible words and the alphabet of segments for possible words.
-	To see how to use these options, type:
-
-		python maxent.py -h
-		python phlearn.py -h
 
 MAKING USER-DEFINED FILES:
 	maxent.py needs an OTSoft-style file. Format a .txt file as follows:
