@@ -58,19 +58,18 @@ class MegaTableau(object):
             self.weights = numpy.zeros(len(self.constraints)) # starting weights
             for line in f:
                 splitline = line.rstrip('\n').split('\t')
-                if len(splitline) > 3:
-                    current_input = splitline[0] if splitline[0] else current_input
-                    current_output = splitline[1]
-                    if splitline[2]:
-                        freq = float(splitline[2])
-                    if not splitline[2]:
-                        freq = 0.0
-                    viol_vec = [int(v) if v else None for v in splitline[3:]]
-                    violations = {}
-                    for c in range(0,len(viol_vec)):   # use indecies for constraint keys
-                        if viol_vec[c]:
-                            violations[c] = viol_vec[c]
-                    self.tableau[current_input][current_output] = [freq,violations,0] #frequency, violations, maxent_val
+                current_input = splitline[0] if splitline[0] else current_input
+                current_output = splitline[1]
+                if splitline[2]:
+                    freq = float(splitline[2])
+                if not splitline[2]:
+                    freq = 0.0
+                viol_vec = [int(v) if v else None for v in splitline[3:]]
+                violations = {}
+                for c in range(0,len(viol_vec)):   # use indecies for constraint keys
+                    if viol_vec[c]:
+                        violations[c] = viol_vec[c]
+                self.tableau[current_input][current_output] = [freq,violations,0] #frequency, violations, maxent_val
 
     def read_weights_file(self, weights_file):
         """
