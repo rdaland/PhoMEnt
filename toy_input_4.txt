@@ -1,17 +1,22 @@
 			*ss	agree	max	dep	ident
 			*ss	agree	max	dep	ident
 cat+z	catz	0		1			
-	cats	1					1
+	cats	10					1
 	catiz	0				1	
 	catis	0				1	1
 	cat	0			1		
-dog+z	dogz	1					
+dog+z	dogz	10					
 	dogs	0		1			1
 	dogiz	0				1	
 	dogis	0				1	1
 	dog	0			1		
 dish+z	dishz	0	1	1			
 	dishs	0	1				1
-	dishiz	1				1	
+	dishiz	10				1	
 	dishis	0				1	1
 	dish	0			1		
+judg+z	judgz	0	1				
+	judgs	0	1	1			1
+	judgiz	10				1	
+	judgis	0				1	1
+	judg	0			1		
