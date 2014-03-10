@@ -85,7 +85,8 @@ MAKING USER-DEFINED FILES:
 	Line 3...Line n:
 		UR, SR, frequency, constraint violations (tab delimited)
 		*Constraint violations must be whole numbers*
-		*Zero violations can be left unspecified.
+		*Zero violations can be left unspecified.*
+		*Zero frequencies can be left unspecified.*
 		*To avoid trouble, make sure the total number of tabs (columns) is consistent between lines*
 		*After the first specification of a UR on line n, lines n+m do not need to be specified.*
 	Unlike the java version of the MaxEnt grammar tool, constraint files are not necessary here.
