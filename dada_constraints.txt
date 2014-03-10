@@ -1,0 +1,6 @@
+^a
+a a
+d$
+d d
+a d
+[da]

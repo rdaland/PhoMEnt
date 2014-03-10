@@ -1,6 +1,0 @@
-^a
-a a
-t$
-t t
-a t
-[ta]
