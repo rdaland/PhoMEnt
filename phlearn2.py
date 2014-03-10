@@ -27,9 +27,13 @@ parser.add_argument('-p', '--precision', type=float, default=10000000, help='Pre
 
 args = parser.parse_args()
 
-    ### TIME
-print "Parsed arguments:\t", time.time() - mark, "sec"
+### TIMER - keep track of how long each step takes
 mark = time.time()
+
+def timer(task):
+    print task, "\t", round(time.time() - mark, 4), "sec"
+    return time.time()
+
 
 #####################################################################
 ## Main code
@@ -41,9 +45,7 @@ mt = megatableau.MegaTableau()
 # read in attested forms and add to MegaTableau
 geneval.read_data_only(mt, args.attested_file_name)
 
-    ### TIME
-print "Filled the tableau:\t", time.time() - mark, "sec"
-mark = time.time()
+mark = timer("Parsed arguments:")
 
 # get alphabet
 if args.alphabet_file_name:
@@ -51,37 +53,27 @@ if args.alphabet_file_name:
 else:
     alphabet = geneval.read_sigma(mt)
 
-    ### TIME
-print "Inferred alphabet:\t", time.time() - mark, "sec"
-mark = time.time()
+mark = timer("Inferred alphabet:")
 
 ## read in constraints
 constraints = geneval.read_constraints(mt, args.constraint_file_name)
 
-    ### TIME
-print "Read constraints:\t", time.time() - mark, "sec"
-mark = time.time()
+mark = timer("Read constraints:")
 
 ## add non-attested forms to tableau
 geneval.augment_sigma_k(mt, alphabet, args.maxstrlen)
 
-    ### TIME
-print "Gen augmentation:\t", time.time() - mark, "sec"
-mark = time.time()
+mark = timer("Gen augmentation:")
 
 ## apply constraints (this is the costliest step...)
 geneval.apply_mark_list(mt, constraints)
 
-    ### TIME
-print "Computed violations:\t", time.time() - mark, "sec"
-mark = time.time()
+mark = timer("Computed violations:")
 
 # Optimize mt.weights
 optimizer.learn_weights(mt, args.L1, args.L2, args.precision)
 
-    ### TIME
-print "Optimized weights:\t", time.time() - mark, "sec"
-mark = time.time()
+mark = timer("Optimized weights:")
 
 # Write the final MegaTableau to file
 if args.outfile:
