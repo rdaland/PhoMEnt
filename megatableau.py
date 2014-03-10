@@ -61,7 +61,10 @@ class MegaTableau(object):
                 if len(splitline) > 3:
                     current_input = splitline[0] if splitline[0] else current_input
                     current_output = splitline[1]
-                    freq = float(splitline[2])
+                    if splitline[2]:
+                        freq = float(splitline[2])
+                    if not splitline[2]:
+                        freq = 0.0
                     viol_vec = [int(v) if v else None for v in splitline[3:]]
                     violations = {}
                     for c in range(0,len(viol_vec)):   # use indecies for constraint keys
