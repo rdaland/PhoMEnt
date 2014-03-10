@@ -9,7 +9,7 @@ Welcome to PhoMEnt!
 
 CONTENTS:
 	1) Command line tool for a maximum entropy learner (maxent.py)
-	2) Command line tool for basic phonotactic learning along the lines of Hayes and Wilson 2008 (phlearn.py)
+	2) Command line tool for basic phonotactic learning following Hayes and Wilson 2008 (phlearn.py)
 	3) Source code that supports 1 and 2 above (megatableau.py, optimizer.py, geneval.py)
 	4) Example files (*.txt)
 
@@ -19,34 +19,38 @@ PREREQS:
 		http://python.org/download/
 		http://www.scipy.org/install.html
 		NOTE: installing scipy can be a major headache.
-			We highly recommend using a package manager like Enthought Canopy (https://www.enthought.com/products/canopy/).
+			We highly recommend using a package manager like Enthought Canopy 
+			(https://www.enthought.com/products/canopy/).
 			Canopy is free for users with a .edu email address.
-			Be warned that other Python installations on your machine may not see the packages installed by Canopy.
+			Be warned: other Python installations may not see packages installed by Canopy.
 
 HIGH-LEVEL SUMMARY OF FUNCTIONALITY:
 	maxent.py
 		Reads in a user-defined tableau file.
 		Weights the constraints to maximize the probability of the data in the tableaux.
 		The tableau file must follow the format of OTSoft
-			(http://www.linguistics.ucla.edu/people/hayes/otsoft/, also see "MAKING USER-DEFINED FILES" below).
+			(http://www.linguistics.ucla.edu/people/hayes/otsoft/)
+			See also "MAKING USER-DEFINED FILES" below.
 			Excel files are not accepted.
 				You must convert such files to tab-separated .txt files.
-				This can be easily done by selecting the filled in parts of your excel sheet,
+				This can be done by selecting the filled in parts of your excel sheet,
 				And copy-paste to a text editor window.
-					Mac users ... if you are using TextEdit, TextEdit makes .rtf files by default
-					You will need to convert this to .txt by pressing "apple-shift-T"
+					Mac users ... TextEdit makes .rtf files by default
+					You will need to convert to .txt by pressing "apple-shift-T"
 				Save this file.
-			Mac/other *nix users may rejoice, this program will read your newline characters without complaint.
+			Mac/other *nix users rejoice, this program won't complain about your newlines.
 	phlearn.py
 		Reads in user-defined surface forms and user-defined constraints.
 		Weights the constraints to maximize the probability of the data.
-			The data is not only the observed surface forms, but all possible words up to length 5.
+			The data is all possible words up to length 5.
 		Constraints must follow regular expression syntax
 
 COMMAND LINE HOW-TO:
 	Open up your favorite command line interpreter.
-		On a Mac, the default is "Terminal". It can be found in Applications/Utilities (or search using Spotlight)
-		On Windows, the default is "Command Prompt". In Windows 8.1, it can be found in "Start Menu\Programs\System Tools
+		On a Mac, the default is "Terminal". 
+			It can be found in Applications/Utilities
+		On Windows, the default is "Command Prompt".
+			In Windows 8.1, it can be found in "Start Menu\Programs\System Tools
 		On Linux, I assume you know what the command line is.
 	cd to the PhoMEnt folder
 		(Google "cd command line YOUR OPERATING SYTEM HERE" if you don't know what this means) 
@@ -55,12 +59,12 @@ COMMAND LINE HOW-TO:
 		python maxent.py tableau.txt
 		python phlearn.py observed.txt constraint.txt
 		
-			(where tableau.txt, observed.txt, constraint.txt are standins for the actual names of files)
-			If you store your files in a folder that is not PhoMEnt, you will need to write the full file path
+			(where tableau.txt, observed.txt, constraint.txt stand for actual names of files)
+			If you store your files outside of PhoMEnt, you need to write the full file path
 	Hit the "Enter" key
 	
 ACCESSING MORE OPTIONS:
-	If you want to write your results to a file (rather than printing them to the terminal window), type one of:
+	If you want to write your results to a file (rather than to the terminal window), type one of:
 
 		python maxent.py tableau.txt -o output.txt
 		python phlearn.py observed.txt constraint.txt -o output.txt
@@ -102,8 +106,8 @@ MAKING USER-DEFINED FILES:
 	Format the constraints file as follows:
 	Line 1 ... Line n:
 		regular expression
-			Make sure each regular expression will not be thrown off by the use of spaces in outputs.
-	Unlike the java version of the MaxEnt grammar tool, constraint files must only contain the constraints.
+			Make sure each regular expression will not be thrown off by spaces in outputs.
+	Unlike the java version of the MaxEnt grammar tool, constraint files only contain the constraints.
 	Note that there is currently no way to specify mu and sigma for a constraint.
 	While there is a way to specify starting weights, this is not available on the command line.
 	Default starting weights can be changed from 0, but not through the command line tools
