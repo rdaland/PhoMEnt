@@ -45,9 +45,9 @@ def neg_log_probability_with_gradient(weights, tableau, l1_mult=0.0, l2_mult=0.0
     expected = [0 for i in range(len(weights))] # Vector of expected violations
     data_size = 0 # Number of total data points: the sum of all counts.
 
-    l1_prob_prior = l1_mult * sum(weights)
+    l1_prob_prior = -(l1_mult * sum(weights))
     l2_prob_prior = l2_mult * sum(weights*weights)
-    l1_grad_prior = l1_mult * scipy.ones(len(weights))
+    l1_grad_prior = -(l1_mult * scipy.ones(len(weights)))
     l2_grad_prior = 2 * l2_mult * weights
     prob_prior = -(l1_prob_prior + l2_prob_prior)
     grad_prior = -(l1_grad_prior + l2_grad_prior)
