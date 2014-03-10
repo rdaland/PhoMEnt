@@ -143,4 +143,4 @@ def sigma_1k(alphabet, k):
 
 
 
-sampleMarkList = ['[cv]','^v','c$','c c','v v', '^c c', 'c c c$', 'c c c c']
+#sampleMarkList = ['[cv]','^v','c$','c c','v v', '^c c', 'c c c$', 'c c c c']
