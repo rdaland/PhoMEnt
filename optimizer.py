@@ -88,7 +88,8 @@ def learn_weights(mt, l1_mult = 0.0, l2_mult = 0.0, precision = 10000000):
     """ Given a filled-in megatableau, return the optimal weight vector.
     """
     # Set up the initial weights and weight bounds (nonpositive reals)
-    w_0 = -scipy.rand(len(mt.weights))
+    #w_0 = -scipy.rand(len(mt.weights)) # Random initial weights
+    w_0 = [0 for w in mt.weights]       # 0 initial weights
     nonpos_reals = [(-50,0) for wt in mt.weights]
 
     prec = precision or 10000000 # TODO: plus prec into optimize call
