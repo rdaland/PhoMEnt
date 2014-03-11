@@ -12,9 +12,10 @@ def maxent_value(weights, tableau, ur, sr):
     """ Compute maxent value P* = exp(harmony) for a particular UR/SR pair.
     """
     harmony = 0
+    very_very_tiny_number = np.finfo(np.double).tiny # Approximately 2.2e-308
     for c in tableau[ur][sr][1]:
         harmony += weights[c] * tableau[ur][sr][1][c]
-    return math.exp(harmony)
+    return math.exp(harmony) + very_very_tiny_number # Makes positive any "0" results created by roundoff error.
 
 def z_score(tableau, ur):
     """ Compute the Z-score for a particular UR, using current maxent values.
