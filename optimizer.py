@@ -44,7 +44,6 @@ def neg_log_probability_with_gradient(weights, tableau, l1_mult=0.0, l2_mult=0.0
     logProbDat = 0
     observed = [0 for i in range(len(weights))] # Vector of observed violations
     expected = [0 for i in range(len(weights))] # Vector of expected violations
-    data_size = 0 # Number of total data points: the sum of all counts.
 
     l1_prob_prior = -(l1_mult * sum(weights))
     l2_prob_prior = l2_mult * sum(weights*weights)
@@ -54,19 +53,23 @@ def neg_log_probability_with_gradient(weights, tableau, l1_mult=0.0, l2_mult=0.0
     grad_prior = -(l1_grad_prior + l2_grad_prior)
 
     for ur in tableau:
+        ur_count = 0 # Total observed for this UR
         z = z_score(tableau, ur)
+        new_expected = [0 for i in range(len(weights))]
+        
         for sr in tableau[ur]:
-            data_size += tableau[ur][sr][0]
+            ur_count += tableau[ur][sr][0]
             prob = tableau[ur][sr][2] / z
             logProbDat += math.log(prob) * tableau[ur][sr][0]
             for c in tableau[ur][sr][1]:
                 observed[c] += tableau[ur][sr][1][c] * tableau[ur][sr][0]
-                expected[c] += tableau[ur][sr][1][c] * prob
+                new_expected[c] += tableau[ur][sr][1][c] * prob
+                
+        for i in range(0,len(expected)):
+            expected[i] += new_expected[i] * ur_count
+            
     logProbDat += prob_prior
-
-    expected[:] = [x * data_size for x in expected] # multiply expected values by size of data
     gradient = [e-o-p for e, o, p  in zip(expected, observed, grad_prior)] # i.e. -(observed minus expected)
-
     return (-logProbDat, np.array(gradient))
 
 nlpwg = neg_log_probability_with_gradient # So you don't get carpal tunnel syndrome.
@@ -89,8 +92,8 @@ def learn_weights(mt, l1_mult = 0.0, l2_mult = 0.0, precision = 10000000):
     """ Given a filled-in megatableau, return the optimal weight vector.
     """
     # Set up the initial weights and weight bounds (nonpositive reals)
-    #w_0 = -scipy.rand(len(mt.weights)) # Random initial weights
-    w_0 = [0 for w in mt.weights]       # 0 initial weights
+    w_0 = -scipy.rand(len(mt.weights)) # Random initial weights
+    #w_0 = [0 for w in mt.weights]       # 0 initial weights
     nonpos_reals = [(-50,0) for wt in mt.weights]
 
     prec = precision or 10000000 # TODO: plus prec into optimize call
