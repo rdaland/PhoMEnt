@@ -56,13 +56,13 @@ class MegaTableau(object):
             self.constraints = f.readline().rstrip('\n').split('\t')[3:] #populating constraints
             self.constraints_abbrev = f.readline().rstrip('\n').split('\t')[3:]#populating constraint abbreviations
             self.weights = numpy.zeros(len(self.constraints)) # starting weights
-            for line in f:
+            for line in [l for l in f if l != '\n']:
                 splitline = line.rstrip('\n').split('\t')
                 current_input = splitline[0] if splitline[0] else current_input
                 current_output = splitline[1]
                 if splitline[2]:
                     freq = float(splitline[2])
-                if not splitline[2]:
+                else:
                     freq = 0.0
                 viol_vec = [int(v) if v else None for v in splitline[3:]]
                 violations = {}
