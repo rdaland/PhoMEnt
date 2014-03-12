@@ -6,16 +6,21 @@ def read_data_only(mt, dataFile):
     """
     update megatableau with io pairs, frequency from user input.
     """
+    words_all_short = True # Keep track of whether there are any multi-letter strings.
     with open(dataFile) as fileIn:
         for line in fileIn:
             parsed = line.rstrip().split('\t')
-            if len(parsed) < 2:
-                print "lines need to at least have an ouput and a frequency"
-                return
-            elif len(parsed) == 2: #only outputs in file
+            if (' ' in parsed[0]):
+                words_all_short = False
+            if len(parsed) == 1: # only output given
+                mt.tableau["NEW-WORD"][parsed[0]] = [1.0, {}, 0]
+            elif len(parsed) == 2: # output and frequency given
                 mt.tableau["NEW-WORD"][parsed[0]] = [float(parsed[1]), {}, 0]
-            elif len(parsed) == 3: #inputs, outputs, freq
+            elif len(parsed) == 3: #input, output, frequency given
                 mt.tableau[parsed[0]][parsed[1]] = [float(parsed[2]), {}, 0]
+            
+    if words_all_short:
+        print "Warning: all candidates are one letter long. Did you forget to add spaces?"
 
 ## read in constraints and turn them into a list of strings called `constraints`
 def read_constraints(mt, constraintFile):
