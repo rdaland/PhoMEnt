@@ -47,7 +47,7 @@ mt = megatableau.MegaTableau()
 geneval.read_data_only(mt, args.attested_file_name)
 
 if args.timed:
-    mark = timer("\nParsed arguments:")
+    mark = timer("\n Parsed arguments in")
 
 # get alphabet
 if args.alphabet_file_name:
@@ -56,31 +56,31 @@ else:
     alphabet = geneval.read_sigma(mt)
 
 if args.timed:
-    mark = timer("Inferred alphabet:")
+    mark = timer(" Inferred alphabet in")
 
 ## read in constraints
 constraints = geneval.read_constraints(mt, args.constraint_file_name)
 
 if args.timed:
-    mark = timer("Read constraints:")
+    mark = timer(" Read constraints in")
 
 ## add non-attested forms to tableau
 geneval.augment_sigma_k(mt, alphabet, args.maxstrlen)
 
 if args.timed:
-    mark = timer("Augmented with GEN:")
+    mark = timer(" Augmented with GEN in")
 
 ## apply constraints (this is the costliest step...)
 geneval.apply_mark_list(mt, constraints)
 
 if args.timed:
-    mark = timer("Computed violations:")
+    mark = timer(" Added violations in")
 
 # Optimize mt.weights
 optimizer.learn_weights(mt, args.L1, args.L2, args.precision)
 
 if args.timed:
-    mark = timer("Optimized weights:")
+    mark = timer(" Optimized weights in")
 
 # Write the final MegaTableau to file
 if args.outfile:
