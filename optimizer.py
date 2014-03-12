@@ -81,7 +81,6 @@ def neg_log_probability(weights, tableau, l1_mult=0.0, l2_mult=1.0):
 
 def probability(weights, tableau, l1_mult=0.0, l2_mult=1.0):
     """ Returns just the probability of the data.
-    This function isn't currently used, it's just here in case you want it.
     """
     return math.exp(-(nlpwg(weights, tableau, l1_mult, l2_mult))[0])
 

@@ -2,6 +2,7 @@
 import argparse
 import megatableau
 import optimizer
+import sys
 
 #####################################################################
 ## Parse command line arguments
@@ -18,6 +19,10 @@ parser.add_argument('-L', '--L2', type=float, default=1.0, \
          help='Multiplier for L2 regularizer')
 parser.add_argument('-p', '--precision', type=float, default=10000000, \
          help='Precision for gradient search (see docs)')
+parser.add_argument('-w', '--weights', type=str, default=None, \
+         help='Weight file name. If specified, maxent.py calculates the \
+                probability of the data using them, and does not \
+                attempt to learn weights.')
 args = parser.parse_args()
 
 #####################################################################
@@ -26,6 +31,13 @@ args = parser.parse_args()
 
 # Construct MegaTableau
 mt = megatableau.MegaTableau(args.input_file_name)
+
+# If weights are provided, return the probability of the tableau
+if args.weights:
+    mt.read_weights_file(args.weights)
+    print('Probability: '+str(optimizer.probability(mt.weights, \
+            mt.tableau, args.L1, args.L2)))
+    sys.exit()
 
 # Optimize mt.weights
 optimizer.learn_weights(mt, args.L1, args.L2, args.precision)
