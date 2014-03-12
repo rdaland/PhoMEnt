@@ -29,7 +29,7 @@ HIGH-LEVEL SUMMARY OF FUNCTIONALITY:
 		Reads in a user-defined tableau file.
 		Weights the constraints to maximize the probability of the data in the tableaux.
 		The tableau file must follow the format of OTSoft 
-			(See maxent_ex1.txt, maxent_ex2.txt)
+			EXAMPLES: maxent_tableau1.txt, maxent_tableau2.txt
 			(http://www.linguistics.ucla.edu/people/hayes/otsoft/)
 			See also "MAKING USER-DEFINED FILES" below.
 			Excel files are not accepted.
@@ -42,8 +42,10 @@ HIGH-LEVEL SUMMARY OF FUNCTIONALITY:
 			Mac/other *nix users rejoice, this program won't complain about your newlines.
 	phlearn.py
 		Reads in user-defined surface forms and user-defined constraints.
-		Weights the constraints to maximize the probability of the data (please look at phlearn_train1.txt or phlearn_tran2.txt).
-			The data is all possible words up to length 5. This number is manipulable. 
+			EXAMPLE: phlearn_train1.txt / phlearn_cons1.txt
+			EXAMPLE: phlearn_train2.txt / phlearn_cons2.txt
+		Weights the constraints to maximize the probability of the data 
+			The candidate set is all possible words up to length 5 by default.
 		Constraints must follow regular expression syntax
 
 COMMAND LINE HOW-TO:
@@ -58,9 +60,9 @@ COMMAND LINE HOW-TO:
 	Depending on what you want to do, type one of the following:
 		
 		python maxent.py tableau.txt
-		python phlearn.py observed.txt constraint.txt
+		python phlearn.py training_data.txt constraints.txt
 		
-			(where tableau.txt, observed.txt, constraint.txt stand for actual names of files)
+			(where tableau.txt, training_data.txt, constraints.txt stand for actual names of files)
 			If you store your files outside of PhoMEnt, you need to write the full file path
 	Hit the "Enter" key
 	
