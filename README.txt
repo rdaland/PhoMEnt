@@ -28,11 +28,11 @@ HIGH-LEVEL SUMMARY OF FUNCTIONALITY:
 	maxent.py
 		Reads in a user-defined tableau file.
 		Weights the constraints to maximize the probability of the data in the tableaux.
-		The tableau file must follow the format of OTSoft
+		The tableau file must follow the format of OTSoft 
+			(See maxent_ex1.txt, maxent_ex2.txt)
 			(http://www.linguistics.ucla.edu/people/hayes/otsoft/)
 			See also "MAKING USER-DEFINED FILES" below.
 			Excel files are not accepted.
-			(Please look at Maxent_ex1.txt, Maxent_ex2.txt)
 				You must convert such files to tab-separated .txt files.
 				This can be done by selecting the filled in parts of your excel sheet,
 				And copy-paste to a text editor window.
@@ -42,8 +42,8 @@ HIGH-LEVEL SUMMARY OF FUNCTIONALITY:
 			Mac/other *nix users rejoice, this program won't complain about your newlines.
 	phlearn.py
 		Reads in user-defined surface forms and user-defined constraints.
-		Weights the constraints to maximize the probability of the data (lexicon).
-			The data (lexicon) is all possible words up to length 5. This number is manipulable. 
+		Weights the constraints to maximize the probability of the data (please look at phlearn_train1.txt or phlearn_tran2.txt).
+			The data is all possible words up to length 5. This number is manipulable. 
 		Constraints must follow regular expression syntax
 
 COMMAND LINE HOW-TO:
