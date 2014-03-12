@@ -96,10 +96,8 @@ def learn_weights(mt, l1_mult = 0.0, l2_mult = 0.0, precision = 10000000):
     #w_0 = [0 for w in mt.weights]       # 0 initial weights
     nonpos_reals = [(-50,0) for wt in mt.weights]
 
-    prec = precision or 10000000 # TODO: plus prec into optimize call
-
     # Find the best weights
-    learned_weights, fneval, rc = scipy.optimize.fmin_l_bfgs_b(nlpwg, w_0, args = (mt.tableau,l1_mult,l2_mult), bounds=nonpos_reals)
+    learned_weights, fneval, rc = scipy.optimize.fmin_l_bfgs_b(nlpwg, w_0, args = (mt.tableau,l1_mult,l2_mult), bounds=nonpos_reals, factr=precision)
 
     # Update the mt in place with the new weights
     mt.weights = learned_weights
