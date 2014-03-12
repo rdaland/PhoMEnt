@@ -43,13 +43,12 @@ if args.weights_file:
             mt.tableau, args.L1, args.L2)))
     sys.exit()
 
-# If a Gaussian priors file is provided, read in to a list
+# If Gaussian priors file is provided, read in to a list
 if args.gaussian_priors_file:
     mt.read_priors_file(args.gaussian_priors_file)
 
 # Optimize mt.weights
-optimizer.learn_weights(mt, args.L1, args.L2, args.precision, \
-            mt.gaussian_priors)
+optimizer.learn_weights(mt, args.L1, args.L2, args.precision)
 
 # Output file
 if args.outfile:

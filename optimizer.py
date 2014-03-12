@@ -93,7 +93,7 @@ def probability(weights, tableau, l1_mult=0.0, l2_mult=1.0):
 
 ### OPTIMIZATION FUNCTION
 
-def learn_weights(mt, l1_mult = 0.0, l2_mult = 1.0, precision = 10000000, gaussian_priors = None):
+def learn_weights(mt, l1_mult = 0.0, l2_mult = 1.0, precision = 10000000):
     """ Given a filled-in megatableau, return the optimal weight vector.
     """
     # Set up the initial weights and weight bounds (nonpositive reals)
@@ -103,7 +103,7 @@ def learn_weights(mt, l1_mult = 0.0, l2_mult = 1.0, precision = 10000000, gaussi
 
     # Find the best weights
     learned_weights, fneval, rc = scipy.optimize.fmin_l_bfgs_b(nlpwg, w_0, \
-        args = (mt.tableau,l1_mult,l2_mult, gaussian_priors), bounds=nonpos_reals, factr=precision)
+        args = (mt.tableau,l1_mult,l2_mult, mt.gaussian_priors), bounds=nonpos_reals, factr=precision)
 
     # Update the mt in place with the new weights
     mt.weights = learned_weights
