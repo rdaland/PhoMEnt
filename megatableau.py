@@ -39,6 +39,7 @@ class MegaTableau(object):
         #formerly self.constrainst_abbrev
         self.constraints_abbrev = []
         self.weights = []
+        self.gaussian_priors = {}
         self.tableau = defaultdict(dict)
         if megt_file:
             self.read_megt_file(megt_file)
@@ -107,6 +108,19 @@ class MegaTableau(object):
                 for pos, conFlag in enumerate(constraintFlags):
                     if conFlag == True:
                         print "constraint", pos, "has no name in weight file, coping ..."
+
+    def read_priors_file(self, priors_file):
+        """
+        Read in a file containing the mu and sigma value for a Gaussian prior on each constraint.
+        Each line in the file is:
+            (constraint name)\t(mu)\t(sigma)
+        """
+        with open(priors_file) as gpfile:
+            gp_entries = ([line.split('\t') for line 
+                        in gpfile.read().rstrip().split('\n')])
+            ms_dict = {name:(float(mu),float(sigma)) for name, mu, sigma in gp_entries}
+            self.gaussian_priors = [ms_dict[c] for c in self.constraints]
+
 
     def write_output(self, file_name):
         ''' Write a text file with the information in the megatableau object

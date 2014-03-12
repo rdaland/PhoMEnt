@@ -36,7 +36,7 @@ def update_maxent_values(weights, tableau):
 
 ### OBJECTIVE FUNCTION(S) ###
 
-def neg_log_probability_with_gradient(weights, tableau, l1_mult=0.0, l2_mult=1.0):
+def neg_log_probability_with_gradient(weights, tableau, l1_mult=0.0, l2_mult=1.0, gaussian_priors=None):
     """ Returns the negative log probability of the data AND a gradient vector.
     This is the objective function used in learn_weights().
     """
@@ -45,12 +45,18 @@ def neg_log_probability_with_gradient(weights, tableau, l1_mult=0.0, l2_mult=1.0
     observed = [0 for i in range(len(weights))] # Vector of observed violations
     expected = [0 for i in range(len(weights))] # Vector of expected violations
 
-    l1_prob_prior = -(l1_mult * sum(weights))
-    l2_prob_prior = l2_mult * sum(weights*weights)
-    l1_grad_prior = -(l1_mult * scipy.ones(len(weights)))
-    l2_grad_prior = 2 * l2_mult * weights
-    prob_prior = -(l1_prob_prior + l2_prob_prior)
-    grad_prior = -(l1_grad_prior + l2_grad_prior)
+    # Gaussian priors override L1/L2 priors
+    if gaussian_priors:
+        wmss = zip(weights, gaussian_priors) # (weight, (mu, sigma))
+        prob_prior = -(sum([((wms[0]-wms[1][0])**2)/(2*wms[1][1]**2) for wms in wmss])) # ((weight-mu)**2) / (2*sigma**2)
+        grad_prior = [-(wms[0]-wms[1][0])/(wms[1][1]**2) for wms in wmss] # (weight-mu) / (sigma**2)
+    else:
+        l1_prob_prior = -(l1_mult * sum(weights))
+        l2_prob_prior = l2_mult * sum(weights*weights)
+        l1_grad_prior = -(l1_mult * scipy.ones(len(weights)))
+        l2_grad_prior = 2 * l2_mult * weights
+        prob_prior = -(l1_prob_prior + l2_prob_prior)
+        grad_prior = -(l1_grad_prior + l2_grad_prior)
 
     for ur in tableau:
         ur_count = 0 # Total observed for this UR
@@ -87,7 +93,7 @@ def probability(weights, tableau, l1_mult=0.0, l2_mult=1.0):
 
 ### OPTIMIZATION FUNCTION
 
-def learn_weights(mt, l1_mult = 0.0, l2_mult = 1.0, precision = 10000000):
+def learn_weights(mt, l1_mult = 0.0, l2_mult = 1.0, precision = 10000000, gaussian_priors = None):
     """ Given a filled-in megatableau, return the optimal weight vector.
     """
     # Set up the initial weights and weight bounds (nonpositive reals)
@@ -96,7 +102,8 @@ def learn_weights(mt, l1_mult = 0.0, l2_mult = 1.0, precision = 10000000):
     nonpos_reals = [(-50,0) for wt in mt.weights]
 
     # Find the best weights
-    learned_weights, fneval, rc = scipy.optimize.fmin_l_bfgs_b(nlpwg, w_0, args = (mt.tableau,l1_mult,l2_mult), bounds=nonpos_reals, factr=precision)
+    learned_weights, fneval, rc = scipy.optimize.fmin_l_bfgs_b(nlpwg, w_0, \
+        args = (mt.tableau,l1_mult,l2_mult, gaussian_priors), bounds=nonpos_reals, factr=precision)
 
     # Update the mt in place with the new weights
     mt.weights = learned_weights
