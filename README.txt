@@ -32,6 +32,7 @@ HIGH-LEVEL SUMMARY OF FUNCTIONALITY:
 			(http://www.linguistics.ucla.edu/people/hayes/otsoft/)
 			See also "MAKING USER-DEFINED FILES" below.
 			Excel files are not accepted.
+			(Please look at Maxent_ex1.txt, Maxent_ex2.txt)
 				You must convert such files to tab-separated .txt files.
 				This can be done by selecting the filled in parts of your excel sheet,
 				And copy-paste to a text editor window.
@@ -41,8 +42,8 @@ HIGH-LEVEL SUMMARY OF FUNCTIONALITY:
 			Mac/other *nix users rejoice, this program won't complain about your newlines.
 	phlearn.py
 		Reads in user-defined surface forms and user-defined constraints.
-		Weights the constraints to maximize the probability of the data.
-			The data is all possible words up to length 5.
+		Weights the constraints to maximize the probability of the data (lexicon).
+			The data (lexicon) is all possible words up to length 5. This number is manipulable. 
 		Constraints must follow regular expression syntax
 
 COMMAND LINE HOW-TO:
@@ -112,20 +113,4 @@ MAKING USER-DEFINED FILES:
 	Note that there is currently no way to specify mu and sigma for a constraint.
 	While there is a way to specify starting weights, this is not available on the command line.
 	Default starting weights can be changed from 0, but not through the command line tools
-
-1. What You have to do.
-Using an input file, you feed the program:
-	1) underlying representations with  (see "phx_test.txt" - sample)
-	2) possible surface representations for each underlying representation (see "toy_input_#" - sample)
-	3) a list of constraints 
-		Line #9 newCons = [LIST YOUR CONSTRAINTS HERE]
-
-2. What the program does (script that is used)
-	1) it calculates number of violations of each constraint for each candidate  (applyMarkList.py)
-	2) it generates a tableau that has underlying representations, surface candidates, their frequencies and violation marks (megatableau.py)
-	3) it computes the probability of the observed data (data_prob.py)
-	4) it calculates constraint weights (calc_weights)
-
-3.2 Make an input file 
-	Make a file that has underlying representations with observed frequencies. Please look at the sample "phx_test.txt". The format is ordinary text, tap-delimited.
 
