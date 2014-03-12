@@ -36,7 +36,7 @@ def update_maxent_values(weights, tableau):
 
 ### OBJECTIVE FUNCTION(S) ###
 
-def neg_log_probability_with_gradient(weights, tableau, l1_mult=0.0, l2_mult=0.0):
+def neg_log_probability_with_gradient(weights, tableau, l1_mult=0.0, l2_mult=1.0):
     """ Returns the negative log probability of the data AND a gradient vector.
     This is the objective function used in learn_weights().
     """
@@ -74,12 +74,12 @@ def neg_log_probability_with_gradient(weights, tableau, l1_mult=0.0, l2_mult=0.0
 
 nlpwg = neg_log_probability_with_gradient # So you don't get carpal tunnel syndrome.
 
-def neg_log_probability(weights, tableau, l1_mult=0.0, l2_mult=0.0):
+def neg_log_probability(weights, tableau, l1_mult=0.0, l2_mult=1.0):
     """ Returns just the negative log probability of the data.
     """
     return (nlpwg(weights, tableau, l1_mult, l2_mult))[0]
 
-def probability(weights, tableau, l1_mult=0.0, l2_mult=0.0):
+def probability(weights, tableau, l1_mult=0.0, l2_mult=1.0):
     """ Returns just the probability of the data.
     This function isn't currently used, it's just here in case you want it.
     """
@@ -88,7 +88,7 @@ def probability(weights, tableau, l1_mult=0.0, l2_mult=0.0):
 
 ### OPTIMIZATION FUNCTION
 
-def learn_weights(mt, l1_mult = 0.0, l2_mult = 0.0, precision = 10000000):
+def learn_weights(mt, l1_mult = 0.0, l2_mult = 1.0, precision = 10000000):
     """ Given a filled-in megatableau, return the optimal weight vector.
     """
     # Set up the initial weights and weight bounds (nonpositive reals)
