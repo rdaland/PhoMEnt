@@ -23,7 +23,7 @@ parser.add_argument('-t', '--timed', help='Print how much time various parts of 
 
 ## weight-setting parameters
 parser.add_argument('-l', '--L1', type=float, default=0.0, help='Multiplier for L1 regularizer')
-parser.add_argument('-L', '--L2', type=float, default=0.0, help='Multiplier for L1 regularizer')
+parser.add_argument('-L', '--L2', type=float, default=1.0, help='Multiplier for L2 regularizer')
 parser.add_argument('-p', '--precision', type=float, default=10000000, help='Precision for gradient search (see docs)')
 
 args = parser.parse_args()
