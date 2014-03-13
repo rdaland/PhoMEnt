@@ -39,18 +39,18 @@ mt = megatableau.MegaTableau(args.input_file_name)
 # If weights are provided, return the probability of the tableau
 if args.weights_file:
     mt.read_weights_file(args.weights_file)
-    print('Probability: '+str(optimizer.probability(mt.weights, \
-            mt.tableau, args.L1, args.L2)))
-    sys.exit()
+    optimizer.update_maxent_values(mt.weights, mt.tableau) # Needed if -outfile
+    print '\nLog probability of data:', - optimizer.neg_log_probability \
+            (mt.weights, mt.tableau, args.L1, args.L2)
 
 # If Gaussian priors file is provided, read in to a list
 if args.gaussian_priors_file:
     mt.read_priors_file(args.gaussian_priors_file)
 
-# Optimize mt.weights
-optimizer.learn_weights(mt, args.L1, args.L2, args.precision)
+# Optimize mt.weights (unless weights were specified)
+if not args.weights_file:
+    optimizer.learn_weights(mt, args.L1, args.L2, args.precision)
 
 # Output file
 if args.outfile:
     mt.write_output(args.outfile)
-
