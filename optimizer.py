@@ -47,9 +47,10 @@ def neg_log_probability_with_gradient(weights, tableau, l1_mult=0.0, l2_mult=1.0
 
     # Gaussian priors override L1/L2 priors
     if gaussian_priors:
-        wmss = zip(weights, gaussian_priors) # (weight, (mu, sigma))
-        prob_prior = -(sum([((wms[0]-wms[1][0])**2)/(2*wms[1][1]**2) for wms in wmss])) # ((weight-mu)**2) / (2*sigma**2)
-        grad_prior = [-(wms[0]-wms[1][0])/(wms[1][1]**2) for wms in wmss] # (weight-mu) / (sigma**2)
+        mus, sigmas = gaussian_priors[0], gaussian_priors[1]
+        normalized = (weights-mus)/sigmas
+        prob_prior = -(0.5*sum(normalized*normalized))
+        grad_prior = -(normalized/sigmas)
     else:
         l1_prob_prior = -(l1_mult * sum(weights))
         l2_prob_prior = l2_mult * sum(weights*weights)

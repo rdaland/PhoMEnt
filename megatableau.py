@@ -120,7 +120,9 @@ class MegaTableau(object):
                 gp_entries = ([line.split('\t') for line 
                             in gpfile.read().rstrip().split('\n')])
                 ms_dict = {name:(float(mu),float(sigma)) for name, mu, sigma in gp_entries}
-                self.gaussian_priors = [ms_dict[c] for c in self.constraints]
+                mus = [ms_dict[c][0] for c in self.constraints]
+                sigmas = [ms_dict[c][1] for c in self.constraints]
+                self.gaussian_priors = [numpy.array(mus), numpy.array(sigmas)]
             except:
                 print('Error: Gaussian priors file is specified but is incomplete or '
                       'improperly formatted. Make sure that all constraints are '
