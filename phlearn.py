@@ -20,6 +20,8 @@ parser.add_argument('-a', '--alphabet_file_name', default=None, help='List of se
 parser.add_argument('-m', '--maxstrlen', type=int, default=5, help='Maximum string length in contrast set')
 parser.add_argument('-o', '--outfile', help='Name of output file')
 parser.add_argument('-t', '--timed', help='Print how much time various parts of the algorithm take.', action="store_true")
+parser.add_argument('-T', '--testing_infile', help='Name of testing items file')
+parser.add_argument('-O', '--testing_outfile', help='Name of testing output file')
 
 ## weight-setting parameters
 parser.add_argument('-l', '--L1', type=float, default=0.0, help='Multiplier for L1 regularizer')
@@ -95,3 +97,12 @@ if args.outfile:
     mt.write_output(args.outfile)
 
 
+if args.testing_infile:
+    testing_mt = megatableau.MegaTableau()
+    testing_mt.weights = mt.weights
+    geneval.read_data_only(testing_mt, args.testing_infile)
+    geneval.apply_mark_list(testing_mt, mt.constraints)
+    optimizer.update_maxent_values(testing_mt.weights, testing_mt.tableau)
+
+    if args.testing_outfile:
+        testing_mt.write_output(args.testing_outfile)
