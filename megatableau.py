@@ -3,6 +3,7 @@
 import sys
 from collections import defaultdict
 import numpy
+import math
 import optimizer
 
 class MegaTableau(object):
@@ -145,19 +146,19 @@ class MegaTableau(object):
             outp_keys[i].sort()
 
         # Add 1st line with constraint names
-        file.write("\t\t\t\t\t")
+        file.write("\t\t\t\t\t\t")
         for constraint in self.constraints:
             file.write(constraint+"\t")
         file.write("\n")
 
         # Add 2nd line with constraint abbreviations
-        file.write("\t\t\t\t\t")
+        file.write("\t\t\t\t\t\t")
         for constraint_abbrev in self.constraints_abbrev:
             file.write(constraint_abbrev+"\t")
         file.write("\n")
 
         # Add 3rd line with constraint weights, headers
-        file.write("\t\tObs\tExp\tprob\t")
+        file.write("\t\tObs\tExp\tProb\tHarmony\t")
         for weight in self.weights:
             file.write(str(round(weight,3))+"\t")
         file.write("\n")
@@ -174,10 +175,12 @@ class MegaTableau(object):
                 obs  = self.tableau[inp][outp][0]
                 prob = self.tableau[inp][outp][2] / zscore
                 exp  = prob * total     # Calculate expected counts
+                harmony = math.log(self.tableau[inp][outp][2])
                 file.write("\t"+outp+"\t")              # Add output
                 file.write(str(obs)+"\t")               # Add observed counts
                 file.write(str(round(exp, 1))+"\t")     # Add expected counts
                 file.write(str(round(prob, 4))+"\t")    # Add probability
+                file.write(str(round(harmony, 4))+"\t")    # Add harmony
                 for c in range(0,len(self.constraints)):# Add violations
                     if c in self.tableau[inp][outp][1].keys():
                         file.write(str(self.tableau[inp][outp][1][c]))
