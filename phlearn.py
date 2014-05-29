@@ -96,7 +96,7 @@ if args.timed:
 if args.outfile:
     mt.write_output(args.outfile)
 
-
+# Read in testing items, generate predictions for them
 if args.testing_infile:
     testing_mt = megatableau.MegaTableau()
     testing_mt.weights = mt.weights
@@ -104,5 +104,6 @@ if args.testing_infile:
     geneval.apply_mark_list(testing_mt, mt.constraints)
     optimizer.update_maxent_values(testing_mt.weights, testing_mt.tableau)
 
+    # Write tableau to file
     if args.testing_outfile:
         testing_mt.write_output(args.testing_outfile)
