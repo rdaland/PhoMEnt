@@ -180,7 +180,7 @@ class MegaTableau(object):
                 file.write(str(obs)+"\t")               # Add observed counts
                 file.write(str(round(exp, 1))+"\t")     # Add expected counts
                 file.write(str(round(prob, 4))+"\t")    # Add probability
-                file.write(str(round(harmony, 4))+"\t")    # Add harmony
+                file.write(str(round(harmony, 4))+"\t") # Add harmony
                 for c in range(0,len(self.constraints)):# Add violations
                     if c in self.tableau[inp][outp][1].keys():
                         file.write(str(self.tableau[inp][outp][1][c]))

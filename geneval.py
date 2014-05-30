@@ -79,8 +79,12 @@ def augment_sigma_k(mt, sigma, k):
             mt.tableau["NEW-WORD"][word] = [0.0, {}, 0]
 
 def violations(constraint,word):
+    # Now deprecated in favor of violations_rom_res
     matches = re.finditer('(?=(' + constraint + '))', word)
     return len([match.group(1) for match in matches])
+
+def violations_from_res(constraint,word):
+    return len(constraint.findall(word))
 
 def apply_mark_list(mt, markList):
     'Apply markedness constraints to each SR in tableau'
@@ -89,10 +93,11 @@ def apply_mark_list(mt, markList):
         new_cons_start = len(mt.constraints) # index of the first newly added constraint
         mt.constraints.extend(markList)
         mt.constraints_abbrev.extend(markList)
+        constraint_res = [re.compile(con) for con in mt.constraints]
         for UR in mt.tableau:
             for SR in mt.tableau[UR]:
                 for c in range(new_cons_start,len(mt.constraints)):
-                    viols = violations(mt.constraints[c],SR)
+                    viols = violations_from_res(constraint_res[c],SR)
                     if viols != 0:
                         mt.tableau[UR][SR][1][c] = viols
 
