@@ -43,8 +43,8 @@ mt = megatableau.MegaTableau(args.input_file_name)
 if args.weights_file:
     mt.read_weights_file(args.weights_file)
     optimizer.update_maxent_values(mt.weights, mt.tableau) # Needed if -outfile
-    print '\nLog probability of data:', - optimizer.neg_log_probability \
-            (mt.weights, mt.tableau, args.L1, args.L2)
+    print('\nLog probability of data: {}'.format(- optimizer.neg_log_probability
+                                (mt.weights, mt.tableau, args.L1, args.L2)))
 
 # If Gaussian priors file is provided, read in to a list
 if args.gaussian_priors_file:

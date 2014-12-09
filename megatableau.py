@@ -90,7 +90,7 @@ class MegaTableau(object):
             #to cope when constraint names are not specified
             counter = 0
             if len(self.weights) != len(self.constraints):
-                print "Error: unequal number of constraints and weights. Please run self.read_megt_file() before self.read_weights_file()."
+                print("Error: unequal number of constraints and weights. Please run self.read_megt_file() before self.read_weights_file().")
                 return
             posDict = {constraint:pos for pos, constraint in enumerate(self.constraints)}
             for line in f:
@@ -108,7 +108,7 @@ class MegaTableau(object):
             if any(constraintFlags):
                 for pos, conFlag in enumerate(constraintFlags):
                     if conFlag == True:
-                        print "Warning: constraint", pos, "has no name in weight file, coping ..."
+                        print("Warning: constraint {} has no name in weight file, coping ...".format(pos))
 
     def read_priors_file(self, priors_file):
         """
@@ -167,7 +167,8 @@ class MegaTableau(object):
         for inp in inp_keys:
             file.write(inp) # Add input
             zscore = optimizer.z_score(self.tableau,inp)
-            assert zscore != 0, "Error: Cannot print a tableau before updating its maxent values."
+            if zscore == 0:
+                raise Exception("Error: Cannot print a tableau before updating its maxent values.")
             total = 0
             for outp in outp_keys[inp]: # Count total occurances of this UR
                 total += self.tableau[inp][outp][0]

@@ -20,7 +20,7 @@ def read_data_only(mt, dataFile):
                 mt.tableau[parsed[0]][parsed[1]] = [float(parsed[2]), {}, 0]
             
     if words_all_short:
-        print "Warning: all candidates are one letter long. Did you forget to add spaces?"
+        print("Warning: all candidates are one letter long. Did you forget to add spaces?")
 
 ## read in constraints and turn them into a list of strings called `constraints`
 def read_constraints(mt, constraintFile):
@@ -36,7 +36,6 @@ def read_constraints(mt, constraintFile):
             if len(splitline) == 1 and splitline[0] != '':
                 constraintList.append(splitline[0])
                 mt.weights.append(0.0)
-                #print "we need constraint, weight pairs. Ignoring", splitline
             elif len(splitline) == 2:
                 if splitline[1]:
                     mt.weights.append(float(splitline[1]))

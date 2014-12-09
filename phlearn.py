@@ -38,7 +38,7 @@ args = parser.parse_args()
 mark = time.time()
 
 def timer(task):
-    print task, "\t", round(time.time() - mark, 4), "sec"
+    print("{}\t{} seconds".format(task, str(round(time.time() - mark, 4))))
     return time.time()
 
 
