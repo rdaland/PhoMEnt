@@ -113,8 +113,8 @@ def learn_weights(mt, l1_mult = 0.0, l2_mult = 1.0, precision = 10000000):
     print("\nBoom! Weights have been updated:")
     for i in range(0,len(learned_weights)):
         print("{}\t{}".format(mt.constraints_abbrev[i], str(learned_weights[i])))
-    print("\nLog probability of data:", -(nlpwg(learned_weights, mt.tableau))[0])
-    print()
+    print("\nLog probability of data: {}".format(str(-(nlpwg(learned_weights, mt.tableau))[0])))
+    print("")
 
     # Return
     return learned_weights
