@@ -138,11 +138,11 @@ class MegaTableau(object):
         file = open(file_name,"w")
 
         # Create and sort list of input keys, and dictionary of lists of output keys.
-        inp_keys = self.tableau.keys()
+        inp_keys = list(self.tableau.keys())
         inp_keys.sort()
         outp_keys = {}
         for i in inp_keys:
-            outp_keys[i] = self.tableau[i].keys()
+            outp_keys[i] = list(self.tableau[i].keys())
             outp_keys[i].sort()
 
         # Add 1st line with constraint names
